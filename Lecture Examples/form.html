@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Table</title>
+    </head>
+    <body>
+        <!-- <h1>Google search</h1>
+        <form action="https://www.google.com/search">
+            <input type="text" name="q">
+            <input type="submit">
+        </form> -->
+
+        <h1>custom form</h1>
+        <form method="POST" action="https://cs-webapps.bu.edu/cgi-bin/util/formmailer.py">
+            Favorite Color <input type="text" name="favorite_color"> <br>
+            <!-- radio buttons are mutually exclusive -->
+            Mode of transportation: <br> 
+            <input type="radio" name="transportation" value="walk"> walk <br>
+            <input type="radio" name="transportation" value="scooter"> scooter<br>
+            <input type="radio" name="transportation" value="bike"> bike<br>
+            <input type="radio" name="transportation" value="bus"> bus<br>
+            <input type="radio" name="transportation" value="train"> train<br>
+            <input type="radio" name="transportation" value="car"> car<br>
+
+            <!-- should use different name for each element in group -->
+            Which do you own? (select all that apply): <br> 
+            <input type="checkbox" name="shoes" value="shoes"> shoes <br>
+            <input type="checkbox" name="scooter" value="scooter"> scooter<br>
+            <input type="checkbox" name="bike" value="bike"> bike<br>
+            <input type="checkbox" name="bus" value="bus"> bus<br>
+            <input type="checkbox" name="train" value="train"> train<br>
+            <input type="checkbox" name="car" value="car"> car<br>
+
+            Any comments?
+            <textarea name="comments" id="" rows="5" cols="40"></textarea> <br>
+
+            Which state do you live in?
+            <select name="state">
+                <option>CA</option>
+                <option>MA</option>
+                <option>NY</option>
+            </select>
+
+            <input type="hidden" name="mailto" value="jchou@bu.edu"><br>
+            <input type="submit">
+        </form>
+    </body>
+</html>
