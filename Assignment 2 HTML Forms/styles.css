@@ -1,0 +1,67 @@
+div {
+    align-items: center;
+    padding: 10px;
+    background-color: #f5ebe0;
+    border-radius: 10px;
+    margin:15px auto;
+    max-width: 750px;
+}
+
+body {
+    background-color: #e3d5ca;
+}
+
+h1 {
+    text-align: center;
+    font-family: monospace;
+    font-size: 100px;
+}
+
+p {
+    font-family: monospace;
+}
+
+h2 {
+    text-align: center;
+    color: #ff4d6d;
+}
+
+h3 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    text-align: center;
+    padding: 5px;
+}
+
+img {
+    border-radius: 10px;
+}
+
+a {
+    color:darkcyan;
+    text-decoration: none;
+}
+
+form {
+    color: brown;
+    text-align: center
+}
+
+input[type=submit] {
+    background-color: aquamarine;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0px;
+}
+
+input[type=text], textarea {
+    width: 100%;
+    border-radius: 10px;
+    border-width: 0px;
+}

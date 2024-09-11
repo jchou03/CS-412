@@ -1,13 +1,134 @@
 <!DOCTYPE html>
 <html>
-    <head><title>survey</title></head>
+    <head>
+        <title>survey</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
     <body>
-        <form action="https://cs-webapps.bu.edu/cgi-bin/util/formmailer.py">
-            Name: <input type="text" name="name"> <br>
-            Home City: <input type="text" name="home" required> <br>
+        <div>
+            <h1>Survey!</h1>
+            
+            <form action="https://cs-webapps.bu.edu/cgi-bin/util/formmailer.py">
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td><input type="text" name="name"></td>
+                    </tr>
+                    <tr>
+                        <td>Home City:</td>
+                        <td><input type="text" name="home" required> </td>
+                    </tr>
+                    <tr>
+                        <td>Home State:</td>
+                        <td>
+                            <select required>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AR">AR</option>
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA" selected="select">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>         
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>How much do you like BU? </td>
+                        <td>
+                            <input type="radio" name="likeBU" value="1" required> 1
+                            <input type="radio" name="likeBU" value="2"> 2
+                            <input type="radio" name="likeBU" value="3"> 3
+                            <input type="radio" name="likeBU" value="4"> 4
+                            <input type="radio" name="likeBU" value="5"> 5 <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>How ready do you feel toward this semester?</td>
+                        <td>
+                            <input type="radio" name="ready" value="1" required> 1
+                            <input type="radio" name="ready" value="2"> 2
+                            <input type="radio" name="ready" value="3"> 3
+                            <input type="radio" name="ready" value="4"> 4
+                            <input type="radio" name="ready" value="5"> 5
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Which CS classes would you recommend?</td>
+                        <td>
+                            <input type="checkbox" name="111" value="111"> 111 
+                            <input type="checkbox" name="112" value="112"> 112
+                            <input type="checkbox" name="131" value="131"> 131
+                            <input type="checkbox" name="132" value="132"> 132
+                            <input type="checkbox" name="411" value="411"> 411
+                            <input type="checkbox" name="412" value="412"> 412
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>What animals would you want as pets?</td>
+                        <td>
+                            <input type="checkbox" name="" value="hiking"> Dog 
+                            <input type="checkbox" name="112" value="112"> Cat
+                            <input type="checkbox" name="131" value="131"> Bird
+                            <input type="checkbox" name="132" value="132"> Fish
+                            <input type="checkbox" name="411" value="411"> Horse
+                            <input type="checkbox" name="412" value="412"> Snake<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Additional Comments:</td>
+                        <td>                <textarea required placeholder="Enter your comments here!"></textarea> <br>
+                        </td>
+                    </tr>
+                </table>            
 
-            <!-- <input type="hidden" name="mailto" value="jchou@bu.edu"><br> -->
-            <input type="submit">
-        </form>
+                <!-- <input type="hidden" name="mailto" value="jchou@bu.edu"><br> -->
+                <h3>give me your information</h3>
+                <input type="submit">
+            </form>
+        </div>
     </body>
 </html>
