@@ -7,5 +7,8 @@ from . import views
 
 # create list of URLs for the app
 urlpatterns = [
-    path(r'', views.main, name="main"), # first URL of app; give name to path matching the name of the function
+    path(r'', views.quote, name="quote"), # first URL of app; give name to path matching the name of the function
+    path(r'quote', views.quote, name="quote"),
+    path(r'show_all', views.show_all, name="show_all"),
+    path(r'about', views.about, name="about")
 ]

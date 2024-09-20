@@ -1,0 +1,19 @@
+<!-- quotes/templates/quotes/show_all.html -->
+{% extends 'quotes/base.html' %}
+
+{% block content %}
+
+    <h1>Quotes by Grace Chong</h1>
+    <ul>
+    {% for quote in all_quotes %}
+        <li><p>{{quote}}</p></li>
+    {% endfor %}
+    </ul>
+
+    <div class="img_container">
+    {% for image in all_images %}
+        <img src="{{image}}">
+    {% endfor %}
+    </div>
+
+{% endblock %}

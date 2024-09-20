@@ -1,0 +1,30 @@
+<!-- hw/templates/hw/base.html
+ base page from which all other pages will inherit -->
+
+{% load static %}
+
+<html>
+    <head>
+        <title>Hello World!</title>
+        <!-- <link rel="stylesheet" href="/static/style.css"> -->
+        <link rel="stylesheet", href="{% static 'style.css' %}">
+    </head> 
+    <body>
+        <nav>
+            <ul>
+                <!-- <a href="/hw">Home</a> -->
+                 <!-- using django scriptlet URL function to look up a URL by name -->
+                <a href="{% url 'home' %}">Home</a>
+                <!-- <a href="/hw/about">About</a> -->
+            </ul>
+        </nav>
+
+        {% block content %}
+        <!-- creating a block named content that can be replaced by using an inherited file -->
+        <!-- put interesting (specific stuff) here -->
+        {% endblock %}
+        
+        <hr>
+        This page was generated at {{current_time}}.
+    </body>
+</html>

@@ -10,6 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+"""
+useful commands: (be in django directory)
+    - py manage.py runserver (start the app)
+    - py manage.py startapp [app name] (creates a new app)
+"""
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

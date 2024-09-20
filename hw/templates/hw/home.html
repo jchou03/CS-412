@@ -1,18 +1,11 @@
 <!-- hw/templates/hw/home.html -->
+{% extends 'hw/base.html' %}
 
-<html>
-    <head>
-        <title>Hello World!</title>
-        <link rel="stylesheet" href="/static/style.css">
-    </head> 
-    <body>
-        <h1>Hello world!</h1>
-        <p>our first django web application</p>
-        <hr>
-        This page was generated at {{current_time}}.
+{% block content %}
+    <h1>Hello world!</h1>
+    <p>our first django web application</p>
+    
+    Random letters: {{letter1}} and {{letter2}}.
 
-        Random letters: {{letter1}} and {{letter2}}.
-
-        Random number: {{number}}.
-    </body>
-</html>
+    Random number: {{number}}.
+{% endblock %}
