@@ -39,6 +39,11 @@ background-color: #555;
     overflow: auto;
 }
 
+.content p {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .content img {
     max-width: 500px;
     max-height: 500px;
