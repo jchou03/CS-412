@@ -19,7 +19,7 @@ images = [
 
 # Create your views here.
 def quote(request):
-    '''function to respond to the / and /quoteurl'''
+    '''function to respond to the /quotes and /quotes/quote urls'''
     template_name = "quotes/quote.html"
     context = {
         "current_time": time.ctime(),
@@ -29,6 +29,7 @@ def quote(request):
     return render(request, template_name=template_name, context=context)
 
 def show_all(request):
+    '''function to respond to the /quotes/show_all url'''
     template_name="quotes/show_all.html"
     context = {
         "current_time": time.ctime(),
@@ -38,6 +39,7 @@ def show_all(request):
     return render(request, template_name=template_name, context=context)
 
 def about(request):
+    '''function to respond to the /quotes/about url'''
     template_name="quotes/about.html"
     context = {
         "current_time": time.ctime(),
