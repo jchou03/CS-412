@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "hw", # new app we created
-    "quotes"
+    "quotes",
+    "formdata",
 ]
 
 MIDDLEWARE = [
