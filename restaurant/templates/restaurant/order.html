@@ -1,0 +1,33 @@
+{% extends 'restaurant/base.html' %}
+{% comment %} restaurant/templates/restaurant/order.html {% endcomment %}
+
+{% block content %}
+<div>
+    <h1>Order at Papa Petryk's Pizza Palace</h1>
+    <h2>Place an Order</h2>
+    
+    <form action="">
+        <table>
+            <tr>
+                <th>Add to Order</th>
+                <th>Item</th>
+                <th>Price</th>
+            </tr>
+            {% comment %} generate the menu items {% endcomment %}
+            {% for item in menu_items %}
+                <tr>
+                    <td><input type="checkbox" name="{{item.name}}"> </td>
+                    <td><p>{{item.name}}</p></td>
+                    <td><p>${{item.price}}</p></td>
+                </tr>
+            {% endfor %}
+            
+            <tr>
+                <td><input type="checkbox" name="{{daily_special.name}}"> </td>
+                <td><p>{{daily_special.name}} (Daily Special)</p></td>
+                <td><p>${{daily_special.price}}</p></td>
+            </tr>
+        </table>
+    </form>
+<div>
+{% endblock %}
