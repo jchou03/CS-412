@@ -5,13 +5,19 @@
 <div>
     <h1>Order at Papa Petryk's Pizza Palace</h1>
     <h2>Place an Order</h2>
-    
-    <form action="">
+
+    <form action="{% url 'confirm' %}" method="POST">
+        {% csrf_token %}
         <table>
             <tr>
                 <th>Add to Order</th>
                 <th>Item</th>
                 <th>Price</th>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="{{daily_special.name}}"> </td>
+                <td><p><b>{{daily_special.name}} (Daily Special)</b></p></td>
+                <td><p>${{daily_special.price}}</p></td>
             </tr>
             {% comment %} generate the menu items {% endcomment %}
             {% for item in menu_items %}
@@ -21,13 +27,28 @@
                     <td><p>${{item.price}}</p></td>
                 </tr>
             {% endfor %}
-            
+        </table>
+
+        <table>
             <tr>
-                <td><input type="checkbox" name="{{daily_special.name}}"> </td>
-                <td><p>{{daily_special.name}} (Daily Special)</p></td>
-                <td><p>${{daily_special.price}}</p></td>
+                <td><p>Name</p></td>
+                <td><input required type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td><p>Phone Number</p></td>
+                <td><input required type="text" name="phone"></td>
+            </tr>
+            <tr>
+                <td><p>Email</p></td>
+                <td><input required type="text" name="email"></td>
+            </tr>
+            <tr>
+                <td><p>Additional Comments</p></td>
+                <td><textarea name="comments" placeholder="Additional comments on your order (like dietary restrictions)"></textarea>
+</td>
             </tr>
         </table>
+        <input type="submit">
     </form>
 <div>
 {% endblock %}
