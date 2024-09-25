@@ -59,7 +59,7 @@ daily_specials = [
 # Create your views here.
 def main(request):
     '''The main page for Papa Petryk's Pizza Palace'''
-    template_name = "restaurant/home.html"
+    template_name = "restaurant/main.html"
     context ={
         "current_time": time.ctime(),
     }
