@@ -1,0 +1,26 @@
+<!-- restuarant/templates/restaurant/base.html
+ base page from which all other pages will inherit -->
+
+ {% load static %}
+
+ <html>
+     <head>
+         <title>Papa Petryk's Pizza</title>
+         <link rel="stylesheet", href="{% static 'quotes_style.css' %}">
+     </head> 
+     <body>
+         <nav class="navbar">
+                 <a href="{% url 'main' %}">Home</a>
+         </nav>
+        
+         <div class="content">
+            {% block content %}
+            <!-- creating a block named content that can be replaced by using an inherited file -->
+            <!-- put interesting (specific stuff) here -->
+            {% endblock %}
+
+            <p>This page was generated at {{current_time}}.</p>
+        </div>
+         
+     </body>
+ </html>
