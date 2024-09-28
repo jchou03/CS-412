@@ -78,6 +78,7 @@ def order(request):
     return render(request, template_name, context)
 
 def confirm(request): 
+    '''Confirmation page for when an order is placed'''
     template_name="restaurant/confirmation.html"
     
     print("request info:")
