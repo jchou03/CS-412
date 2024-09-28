@@ -78,7 +78,7 @@ def order(request):
     return render(request, template_name, context)
 
 def confirm(request): 
-    template_name="restaurant/confirm.html"
+    template_name="restaurant/confirmation.html"
     
     print("request info:")
     print(request)
