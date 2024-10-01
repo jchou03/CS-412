@@ -1,0 +1,23 @@
+{% comment %} blog/templates/blog/show_all.html {% endcomment %}
+
+<h1>showing all articles</h1>
+
+{% block content %}
+
+{% comment %} show list of articles {% endcomment %}
+<main class="grid-container"> <!-- was <div> -->
+    {% for a in articles %}
+        <article>
+            <img src="{{a.image_url}}" alt="oopsy image gone">
+
+            <div>
+                <h2>{{a.title}}</h2>
+                <h4>by {{a.author}} at {{a.published}}</h4>
+                <p>{{a.text}}</p>
+            </div>
+        </article> <!-- was div -->
+    {% endfor %}
+    </main>
+{{articles}}
+
+{% endblock %}
