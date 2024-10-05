@@ -6,6 +6,6 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-    path(r'', views.ShowAllProfilesView.as_view(), name="show_all"),
-    path(r'home', views.ShowAllProfilesView.as_view(), name="show_all")
+    path(r'', views.ShowAllProfilesView.as_view(), name="show_all_profiles"),
+    path(r'home', views.ShowAllProfilesView.as_view(), name="show_all_profiles")
 ]
