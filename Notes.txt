@@ -1,0 +1,8 @@
+Useful commands: 
+git subtree split --branch [branch subdirectory] --prefix [folder]/
+
+Django Commands:
+py manage.py startapp (create app)
+py manage.py runserver (start server)
+py manage.py makemigrations (make migration information)
+py manage.py migrate (perform migration steps)
