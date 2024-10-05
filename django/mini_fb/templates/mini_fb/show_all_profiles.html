@@ -1,0 +1,26 @@
+{% extends 'mini_fb/base.html' %}
+{% comment %} mini_fb/templates/mini_fb/show_all_profiles.html {% endcomment %}
+
+<h1>showing all profiles</h1>
+
+{% block content %}
+
+{% comment %} show list of profiles {% endcomment %}
+<main class="grid-container"> <!-- was <div> -->
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Picture</th>
+        </tr>
+        {% for p in profiles %}
+            <tr>
+                <td><p>{{p.first_name}}  {{p.last_name}}</p></td>
+                <td><p>{{p.city}}</p></td>
+                <td class="img_container"><img src="{{p.profile_image_url}}" alt="oopsy image gone"></td>
+            </tr> <!-- was div -->
+        {% endfor %}
+    </table>
+</main>
+
+{% endblock %}
