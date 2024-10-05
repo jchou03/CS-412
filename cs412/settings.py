@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # "formdata",
     "restaurant", # Assignment 4
     "blog",
+    "mini_fb", # Assignment 5
 ]
 
 MIDDLEWARE = [
