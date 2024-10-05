@@ -1,0 +1,32 @@
+<!-- mini_fb/templates/mini_fb/base.html
+ base page from which all other pages will inherit -->
+
+ {% load static %}
+
+ <html>
+     <head>
+         <title>Mini Facebook</title>
+         <link rel="stylesheet", href="{% static 'mini_fb.css' %}">
+     </head> 
+     <body>
+         <nav class="navbar">
+                 <a href="{% url 'home' %}">Home</a>
+         </nav>
+
+        <div class="content">
+            <header>
+                <h1>Welcome to Mini Facebook!</h1>
+            </header>
+
+            {% block content %}
+            <!-- creating a block named content that can be replaced by using an inherited file -->
+            <!-- put interesting (specific stuff) here -->
+            {% endblock %}
+
+            <footer>
+                <h4>Thank you for visiting this page. More information to come.</h4>
+            </footer>
+        </div>
+         
+     </body>
+ </html>
