@@ -1,5 +1,5 @@
 Useful commands: 
-git subtree split --branch [branch subdirectory] --prefix [folder]/
+git subtree split --branch [branch name] --prefix [folder]/
 
 Django Commands:
 py manage.py startapp (create app)

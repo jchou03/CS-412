@@ -1,0 +1,35 @@
+{% comment %} blog/templates/blog/show_all.html {% endcomment %}
+
+<h1>showing a single articles</h1>
+
+{% block content %}
+
+{% comment %} show a single article shown at random {% endcomment %}
+
+<nav>
+    <ul>
+        <li><a href="{% url 'show_all' %}">All Articles</a></li>
+        <li><a href="{% url 'random' %}">Random</a></li>
+    </ul>
+</nav>
+
+<main class="grid-container"> <!-- was <div> -->
+    <article>
+        <img src="{{article.image_url}}" alt="oopsy image gone">
+
+        <div>
+            <h2>{{article.title}}</h2>
+            <h4>by {{article.author}} at {{article.published}}</h4>
+            <p>{{article.text}}</p>
+        </div>
+    </article> <!-- was div -->
+    <div>
+        <h2>Comments</h2>
+        {% comment %} call the Article's get_comments() method {% endcomment %}
+        {% for c in article.get_comments %}
+            <p>{{c.text}} - {{c.author}}</p>
+        {% endfor %}
+    </div>
+</main>
+
+{% endblock %}
