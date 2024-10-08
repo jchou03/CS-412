@@ -4,11 +4,22 @@
 
 {% block content %}
 
+
+<nav>
+    <ul>
+        <li><a href="{% url 'show_all' %}">All Articles</a></li>
+        <li><a href="{% url 'random' %}">Random</a></li>
+    </ul>
+</nav>
+
 {% comment %} show list of articles {% endcomment %}
 <main class="grid-container"> <!-- was <div> -->
     {% for a in articles %}
         <article>
-            <img src="{{a.image_url}}" alt="oopsy image gone">
+            {% comment %} this passes the article's primary key as a parameter to the url {% endcomment %}
+            <a href="{% url 'article' a.pk %}">
+                <img src="{{a.image_url}}" alt="oopsy image gone">
+            </a>
 
             <div>
                 <h2>{{a.title}}</h2>
