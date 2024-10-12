@@ -70,3 +70,7 @@ body {
 .content td {
     text-align: center;
 }
+
+.status_messages {
+    text-align: left;
+}
