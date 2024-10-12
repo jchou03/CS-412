@@ -16,7 +16,6 @@ class Profile(models.Model):
     def get_status_messages(self):
         '''retrieve all status messages for this profile'''
         status_messages = StatusMessage.objects.filter(profile=self)
-        # status_messages.sort()
         return status_messages
     
 class StatusMessage(models.Model):
