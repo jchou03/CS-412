@@ -12,3 +12,19 @@ class Profile(models.Model):
     def __str__(self):
         '''string representation of profile objects'''
         return self.first_name + " " + self.last_name
+    
+    def get_status_messages(self):
+        '''retrieve all status messages for this profile'''
+        status_messages = StatusMessage.objects.filter(profile=self)
+        # status_messages.sort()
+        return status_messages
+    
+class StatusMessage(models.Model):
+    '''status message representing the current status of a profile'''
+    timestamp = models.DateTimeField(auto_now=True)
+    message = models.TextField()
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        '''string representation of a status message'''
+        return f'{self.profile}: {self.message}'

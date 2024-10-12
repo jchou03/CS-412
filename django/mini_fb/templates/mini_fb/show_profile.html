@@ -13,6 +13,13 @@
         <tr><td><p>{{profile.city}}</p></td></tr>
         <tr><td><p>{{profile.email}}</p></td></tr>
     </table>
+
+    <h3>Status Messages:</h3>
+    <table class="status_messages">
+        {% for status in profile.get_status_messages %}
+        <tr><td>{{status.timestamp}}: {{status.message}}</td></tr>
+        {% endfor %}
+    </table>
 </main>
 
 {% endblock %}
