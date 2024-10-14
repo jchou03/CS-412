@@ -71,6 +71,6 @@ body {
     text-align: center;
 }
 
-.status_messages {
+.status_messages td {
     text-align: left;
 }
