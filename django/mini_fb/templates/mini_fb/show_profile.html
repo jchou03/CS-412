@@ -4,24 +4,25 @@
 <h1>showing profile</h1>
 
 {% block content %}
-
 {% comment %} show list of profiles {% endcomment %}
-<main class="grid-container"> <!-- was <div> -->
-    <table>
-        <tr><td class="img_container"><img src="{{profile.profile_image_url}}" alt="oopsy image gone" class="profile_img"></td></tr>
-        <tr><td><p>{{profile.first_name}}  {{profile.last_name}}</p></td></tr>
-        <tr><td><p>{{profile.city}}</p></td></tr>
-        <tr><td><p>{{profile.email}}</p></td></tr>
-    </table>
+<table>
+    <tr><td class="img_container"><img src="{{profile.profile_image_url}}" alt="oopsy image gone" class="profile_img"></td></tr>
+    <tr><td><p>{{profile.first_name}}  {{profile.last_name}}</p></td></tr>
+    <tr><td><p>{{profile.city}}</p></td></tr>
+    <tr><td><p>{{profile.email}}</p></td></tr>
+</table>
 
-    {% if profile.get_status_messages %}
-        <h3>Status Messages:</h3>
-        <table class="status_messages">
-            {% for status in profile.get_status_messages %}
-            <tr><td>{{status.timestamp}}: {{status.message}}</td></tr>
-            {% endfor %}
-        </table>
-    {% endif %}
-</main>
+<table class="status_messages">
+    <tr>
+        <th><strong>Status Messages:</strong></th>
+        <th><a href="{% url 'create_status' profile.pk %}">New Status</a></th>
+    </tr>
+    {% for status in profile.get_status_messages %}
+    <tr>
+        <td><p>{{status.timestamp}}</p></td> 
+        <td><p>{{status.message}}</p></td>
+    </tr>
+    {% endfor %}
+</table>
 
 {% endblock %}

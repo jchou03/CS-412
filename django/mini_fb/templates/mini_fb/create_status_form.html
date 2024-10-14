@@ -1,7 +1,6 @@
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
-
 <form method="POST">
     {% csrf_token %}
     <table>
@@ -9,15 +8,13 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" name="create_profile" value="create_profile">
+                <input type="submit" name="create_status" value="create_status">
 </form>
-                <!-- NOTE: this is a separate form! -->
-                <form action="{% url 'show_all_profiles'%}">
+                <!-- NOTE: this is a separate form for canceling -->
+                <form action="{% url 'show_profile' profile.pk %}">
                     <input type="submit" name="Cancel" value="Cancel">
                 </form>
             </td>
         </tr>
     </table>
-</form>
-
 {% endblock %}
