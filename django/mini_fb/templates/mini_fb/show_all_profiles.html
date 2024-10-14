@@ -17,7 +17,7 @@
             <tr>
                 <td><a href="{% url 'show_profile' p.pk %}">{{p.first_name}}  {{p.last_name}}</a></td>
                 <td><p>{{p.city}}</p></td>
-                <td class="img_container"><img src="{{p.profile_image_url}}" alt="oopsy image gone"></td>
+                <td class="img_container"><a href="{% url 'show_profile' p.pk %}"><img src="{{p.profile_image_url}}" alt="oopsy image gone"></a></td>
             </tr> <!-- was div -->
         {% endfor %}
     </table>
