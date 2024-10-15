@@ -1,10 +1,10 @@
 {% extends 'mini_fb/base.html' %}
-{% comment %} mini_fb/templates/mini_fb/show_all_profiles.html {% endcomment %}
+{% comment %} mini_fb/templates/mini_fb/show_profiles.html {% endcomment %}
 
 <h1>showing profile</h1>
 
 {% block content %}
-{% comment %} show list of profiles {% endcomment %}
+{% comment %} show a single profile {% endcomment %}
 <table>
     <tr><td class="img_container"><img src="{{profile.profile_image_url}}" alt="oopsy image gone" class="profile_img"></td></tr>
     <tr><td><p>{{profile.first_name}}  {{profile.last_name}}</p></td></tr>
