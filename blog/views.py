@@ -5,6 +5,7 @@ from django.shortcuts import render
 from . models import *
 from django.views.generic import *
 import random
+from . forms import *
 
 # Create your views here.
 class ShowAllView(ListView):
@@ -30,7 +31,6 @@ class RandomArticleView(DetailView):
             # SELECT *
         # pick one at random
         return random.choice(all_articles)
-
     
 class ArticleView(DetailView):
     '''a view to show one specific article'''
@@ -38,3 +38,18 @@ class ArticleView(DetailView):
     template_name = "blog/article.html"
     context_object_name = "article" 
         # singular name
+        
+class CreateArticleView(CreateView):
+    '''a view to show/process the create Article form:
+    on GET: sends back the form
+    on POST: read form data, create an instance of comment'''
+    
+    form_class = CreateArticleForm
+    template_name = "blog/create_article_form.html"
+    
+    def form_valid(self, form):
+        '''add debugging statements'''
+        print(f'CreateArticleView.form_valid: form.cleaned_data={form.cleaned_data}')
+        # delegate work to superclass
+        return super().form_valid(form)
+    
