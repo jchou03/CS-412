@@ -18,7 +18,8 @@
         <article>
             {% comment %} this passes the article's primary key as a parameter to the url {% endcomment %}
             <a href="{% url 'article' a.pk %}">
-                <img src="{{a.image_url}}" alt="oopsy image gone">
+                {% comment %} <img src="{{a.image_url}}" alt="oopsy image gone"> {% endcomment %}
+                <img src="{{a.image_file.url}}" alt="image isn't loading">
             </a>
 
             <div>

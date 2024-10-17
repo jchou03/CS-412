@@ -15,7 +15,9 @@
 
 <main class="grid-container"> <!-- was <div> -->
     <article>
-        <img src="{{article.image_url}}" alt="oopsy image gone">
+        {% comment %} <img src="{{article.image_url}}" alt="oopsy image gone"> {% endcomment %}
+
+        <img src="article.image_file.url" alt="image is missing">
 
         <div>
             <h2>{{article.title}}</h2>
