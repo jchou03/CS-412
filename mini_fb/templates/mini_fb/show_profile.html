@@ -27,6 +27,7 @@
                 <img src='{{img.image.url}}' alt='{{img.image.url}}'>
             {% endfor %}
         </td>
+        <td><a href="{% url 'delete_status' status.pk %}">Delete Status</a></td>
     </tr>
     {% endfor %}
 </table>
