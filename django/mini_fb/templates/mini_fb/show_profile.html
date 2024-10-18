@@ -10,6 +10,7 @@
     <tr><td><p>{{profile.first_name}}  {{profile.last_name}}</p></td></tr>
     <tr><td><p>{{profile.city}}</p></td></tr>
     <tr><td><p>{{profile.email}}</p></td></tr>
+    <tr><td><a href="{% url 'update_profile' profile.pk %}">Update Profile</a></td></tr>
 </table>
 
 <table class="status_messages">

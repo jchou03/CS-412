@@ -62,4 +62,9 @@ class CreateStatusMessageView(CreateView):
     def get_success_url(self):
         '''redirect URL after form submission'''
         return reverse('show_profile', kwargs=self.kwargs)
-        
+
+class UpdateProfileView(UpdateView):
+    '''view to update an existing profile'''
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = "mini_fb/update_profile_form.html"
