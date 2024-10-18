@@ -33,3 +33,18 @@ class StatusMessage(models.Model):
     def __str__(self):
         '''string representation of a status message'''
         return f'{self.profile}: {self.message}'
+    
+    def get_images(self):
+        '''get the images associated with this status message'''
+        images = Image.objects.filter(statusMessage=self)
+        return images
+    
+class Image(models.Model):
+    '''model representing an image to be displayed on a user's profile'''
+    image = models.ImageField(blank=True)
+    statusMessage = models.ForeignKey("StatusMessage", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f'{self.statusMessage} : {self.image}'
+    
+    

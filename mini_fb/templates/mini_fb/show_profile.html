@@ -21,6 +21,11 @@
     <tr>
         <td><p>{{status.timestamp}}</p></td> 
         <td><p>{{status.message}}</p></td>
+        <td>
+            {% for img in status.get_images %}
+                <img src='{{img.image.url}}' alt='{{img.image.url}}'>
+            {% endfor %}
+        </td>
     </tr>
     {% endfor %}
 </table>

@@ -74,3 +74,8 @@ body {
 .status_messages td {
     text-align: left;
 }
+
+.status_messages img {
+    max-width: 150px;
+    max-height: 150px;
+}

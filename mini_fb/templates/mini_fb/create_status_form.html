@@ -2,10 +2,14 @@
 {% comment %} page for users to add a new status {% endcomment %}
 
 {% block content %}
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         {{form.as_table}}
+        <tr>
+            <td></td>
+            <td><input type="file" name = "files" multiple /></td>
+        </tr>
         <tr>
             <td></td>
             <td>
