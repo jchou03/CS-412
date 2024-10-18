@@ -1,0 +1,23 @@
+{% extends 'mini_fb/base.html' %}
+{% comment %} page for users to create new profiles {% endcomment %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="create_profile" value="Update Profile">
+</form>
+                <!-- NOTE: this is a separate form! -->
+                <form action="{% url 'show_all_profiles'%}">
+                    <input type="submit" name="Cancel" value="Cancel">
+                </form>
+            </td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
