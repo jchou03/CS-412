@@ -9,10 +9,10 @@
         <tr>
             <td></td>
             <td>
-                <input type="submit" name="create_profile" value="Update Profile">
+                <input type="submit" name="update_profile" value="Update Profile">
 </form>
                 <!-- NOTE: this is a separate form! -->
-                <form action="{% url 'show_all_profiles'%}">
+                <form action="{% url 'show_profile' profile.pk %}">
                     <input type="submit" name="Cancel" value="Cancel">
                 </form>
             </td>
