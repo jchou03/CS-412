@@ -81,3 +81,14 @@ class DeleteStatusMessageView(DeleteView):
         self.kwargs['pk'] = self.get_context_data()['object'].profile.pk
         return reverse('show_profile', kwargs=self.kwargs)
         
+class UpdateStatusMessageView(UpdateView):
+    '''view to update an existing status message'''
+    model = StatusMessage
+    form_class = UpdateStatusMessageForm
+    template_name = "mini_fb/update_status_form.html"
+    context_object_name = "status"
+    
+    def get_success_url(self):
+        '''redirect URL after successful update'''
+        self.kwargs['pk'] = self.get_context_data()['object'].profile.pk
+        return reverse('show_profile', kwargs = self.kwargs)
