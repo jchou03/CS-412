@@ -1,10 +1,11 @@
 {% extends 'mini_fb/base.html' %}
 {% comment %} mini_fb/templates/mini_fb/show_profiles.html {% endcomment %}
 
-<h1>showing profile</h1>
-
 {% block content %}
 {% comment %} show a single profile {% endcomment %}
+
+<h1>{{profile.first_name}} {{profile.last_name}}</h1>
+
 <table>
     <tr><td class="img_container"><img src="{{profile.profile_image_url}}" alt="oopsy image gone" class="profile_img"></td></tr>
     <tr><td><p>{{profile.first_name}}  {{profile.last_name}}</p></td></tr>
@@ -27,7 +28,8 @@
                 <img src='{{img.image.url}}' alt='{{img.image.url}}'>
             {% endfor %}
         </td>
-        <td><a href="{% url 'delete_status' status.pk %}">Delete Status</a></td>
+        <td><a href="{% url 'update_status' status.pk %}">Update Status</a><br/><a href="{% url 'delete_status' status.pk %}">Delete Status</a></td>
+        {% comment %} <td></td> {% endcomment %}
     </tr>
     {% endfor %}
 </table>
