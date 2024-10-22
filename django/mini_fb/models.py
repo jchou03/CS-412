@@ -20,9 +20,21 @@ class Profile(models.Model):
         return status_messages
     
     def get_absolute_url(self):
-        print("getting absolute url")
+        '''get absolute url for profile after creating a new profile'''
+        # print("getting absolute url")
         return reverse("show_profile", kwargs={"pk": self.pk})
     
+    def get_friends(self):
+        '''get a list of all friends of this profile'''
+        friendships = Friend.objects.filter(profile1=self) | Friend.objects.filter(profile2=self)
+        friends = []
+        for f in friendships:
+            if f.profile1==self:
+                friends.append(f.profile2)
+            else:
+                friends.append(f.profile1)
+        print(f'{self} has these friends: {friends}')
+        return friends
     
 class StatusMessage(models.Model):
     '''status message representing the current status of a profile'''
@@ -46,5 +58,16 @@ class Image(models.Model):
     
     def __str__(self):
         return f'{self.statusMessage} : {self.image}'
+    
+    
+class Friend(models.Model):
+    '''model representing a friend relationship between two profiles'''
+    profile1 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile1")
+    profile2 = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile2")
+    timestamp = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f'{self.profile1} & {self.profile2}'
+    
     
     
