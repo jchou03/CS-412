@@ -15,9 +15,14 @@
 </table>
 
 <h3>Friends</h3>
+<table>
 {% for f in profile.get_friends %}
-    <p>{{f}}</p>
+    <tr class="friend_display">
+        <td><a href="{% url 'show_profile' f.pk %}">{{f}}</a></td>
+        <td class="img_container"><img src="{{f.profile_image_url }}" alt="image can't be loaded right now"></td>
+    </tr>
 {% endfor %}
+</table>
 
 <table class="status_messages">
     <tr>
