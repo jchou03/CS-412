@@ -33,7 +33,7 @@ class Profile(models.Model):
                 friends.append(f.profile2)
             else:
                 friends.append(f.profile1)
-        print(f'{self} has these friends: {friends}')
+        # print(f'{self} has these friends: {friends}')
         return friends
     
 class StatusMessage(models.Model):
@@ -58,7 +58,6 @@ class Image(models.Model):
     
     def __str__(self):
         return f'{self.statusMessage} : {self.image}'
-    
     
 class Friend(models.Model):
     '''model representing a friend relationship between two profiles'''
