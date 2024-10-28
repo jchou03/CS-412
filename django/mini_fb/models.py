@@ -56,6 +56,12 @@ class Profile(models.Model):
         limit = 5
         return friend_suggestions[:min(len(friend_suggestions), limit)]
     
+    def get_news_feed(self):
+        '''generate news feed of all the status messages of this user and the friends of this user'''
+        friends = self.get_friends()
+        statuses = StatusMessage.objects.filter(profile__in=friends).order_by('timestamp').reverse()
+        return statuses
+        
     
 class StatusMessage(models.Model):
     '''status message representing the current status of a profile'''
