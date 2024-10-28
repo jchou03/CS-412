@@ -5,6 +5,7 @@
 {% comment %} show a single profile {% endcomment %}
 
 <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+<a href="{% url 'news_feed' profile.pk %}">News Feed</a>
 
 <table>
     <tr><td class="img_container"><img src="{{profile.profile_image_url}}" alt="oopsy image gone" class="profile_img"></td></tr>
@@ -31,8 +32,6 @@
         <th><a href="{% url 'create_status' profile.pk %}">New Status</a></th>
     </tr>
     {% for status in profile.get_status_messages %}
-
-    <tr>{{status}}</tr>
 
     <tr>
         <td><p>{{status.timestamp}}</p></td> 
