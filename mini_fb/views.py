@@ -3,6 +3,7 @@ from . models import *
 from django.views.generic import *
 from . forms import *
 from django.urls import reverse
+from django.shortcuts import redirect
 
 # Create your views here.
 class ShowAllProfilesView(ListView):
@@ -92,3 +93,22 @@ class UpdateStatusMessageView(UpdateView):
         '''redirect URL after successful update'''
         self.kwargs['pk'] = self.get_context_data()['object'].profile.pk
         return reverse('show_profile', kwargs = self.kwargs)
+    
+class CreateFriendView(View):
+    '''view to add a friendship between two profiles'''
+    def dispatch(self, request, *args, **kwargs):
+        print(self.kwargs)
+        p1 = Profile.objects.get(pk=self.kwargs["pk"])
+        p2 = Profile.objects.get(pk=self.kwargs["other_pk"])
+        print(p1)
+        print(p2)
+        p1.add_friend(p2)
+        
+        return redirect('show_profile', pk=self.kwargs["pk"])
+
+class ShowFriendSuggestionsView(DetailView):
+    '''view to display friend suggestions for a profile'''
+    model=Profile
+    template_name="mini_fb/friend_suggestions.html"
+    context_object_name="profile"
+    

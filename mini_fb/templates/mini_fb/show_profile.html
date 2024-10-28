@@ -15,11 +15,12 @@
 </table>
 
 <h3>Friends</h3>
+<a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions for {{profile.first_name}} {{profile.last_name}}</a>
 <table>
 {% for f in profile.get_friends %}
     <tr class="friend_display">
         <td><a href="{% url 'show_profile' f.pk %}">{{f}}</a></td>
-        <td class="img_container"><img src="{{f.profile_image_url }}" alt="image can't be loaded right now"></td>
+        <td class="img_container"><img src="{{f.profile_image_url}}" alt="image can't be loaded right now"></td>
     </tr>
 {% endfor %}
 </table>
@@ -30,6 +31,9 @@
         <th><a href="{% url 'create_status' profile.pk %}">New Status</a></th>
     </tr>
     {% for status in profile.get_status_messages %}
+
+    <tr>{{status}}</tr>
+
     <tr>
         <td><p>{{status.timestamp}}</p></td> 
         <td><p>{{status.message}}</p></td>
@@ -39,7 +43,6 @@
             {% endfor %}
         </td>
         <td><a href="{% url 'update_status' status.pk %}">Update Status</a><br/><a href="{% url 'delete_status' status.pk %}">Delete Status</a></td>
-        {% comment %} <td></td> {% endcomment %}
     </tr>
     {% endfor %}
 </table>
