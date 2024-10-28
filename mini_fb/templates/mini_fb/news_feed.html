@@ -1,0 +1,24 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+
+<h2>News Feed for {{profile.first_name}}</h2>
+<a href="{% url 'show_all_profiles' %}">All Profiles</a>
+<a href="{% url 'show_profile' profile.pk %}">{{profile.first_name}} {{profile.last_name}}</a>
+
+<table class="status_messages news_feed">
+    {% for s in profile.get_news_feed %}
+    <tr>
+        <td><p>{{s.profile}} {{s.timestamp}}</p></td>
+        <td>
+            <p>{{s.message}}</p>
+        
+            {% for img in s.get_images %}
+                <img src='{{img.image.url}}' alt='{{img.image.url}}'>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
