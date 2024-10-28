@@ -1,0 +1,15 @@
+{% extends 'mini_fb/base.html' %}
+{% comment %} extend the mini_fb/base.html base template {% endcomment %}
+
+{% block content %}
+    <h2>Friend Suggestions for <a href="{% url 'show_profile' profile.pk %}">{{profile.first_name}} {{profile.last_name}}</a></h2>
+    <table>
+    {% for p in profile.get_friend_suggestions %}
+        <tr class="friend_display">
+            <td><a href="{% url 'show_profile' p.pk %}">{{p.first_name}} {{p.last_name}}</a></td>
+            <td class="img_container"><img src="{{p.profile_image_url}}" alt="picture missing"></td>
+            <td><a href="{% url 'add_friend' pk=profile.pk other_pk=p.pk %}">Add Friend</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}

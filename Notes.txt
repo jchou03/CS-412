@@ -6,3 +6,6 @@ py manage.py startapp (create app)
 py manage.py runserver (start server)
 py manage.py makemigrations (make migration information)
 py manage.py migrate (perform migration steps)
+
+in shell:
+from [project].[filename] import *

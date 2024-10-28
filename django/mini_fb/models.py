@@ -36,6 +36,27 @@ class Profile(models.Model):
         # print(f'{self} has these friends: {friends}')
         return friends
     
+    def add_friend(self, other):
+        '''add a new friend connection with this profile'''
+        existing_friendship = other in self.get_friends()
+        if (not existing_friendship) and (self != other):
+            # only add a new friendship if the two profiles are not already friends
+            f = Friend()
+            f.profile1 = self
+            f.profile2 = other
+            f.save()
+            print(f"a new friendship between {self} and {other} has been made")
+
+    def get_friend_suggestions(self):
+        '''generate suggestions for friends'''
+        existing_friends = self.get_friends()
+        friend_suggestions = [p for p in Profile.objects.all() if (not p in existing_friends) and p != self]
+        print(friend_suggestions)
+        # subject to change later
+        limit = 5
+        return friend_suggestions[:min(len(friend_suggestions), limit)]
+    
+    
 class StatusMessage(models.Model):
     '''status message representing the current status of a profile'''
     timestamp = models.DateTimeField(auto_now=True)
