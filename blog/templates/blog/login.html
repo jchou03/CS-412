@@ -1,0 +1,30 @@
+
+{% block content %}
+
+<header>
+    <h1>Mini Blog</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'show_all' %}">All Articles</a></li>
+        <li><a href="{% url 'random' %}">Random</a></li>
+    </ul>
+</nav>
+
+<h1>Login</h1>
+
+<form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{form}}
+
+    {% if request.GET.next %}
+        <input type="hidden" name="next" value="{{request.GET.next}}">
+    {% else %}
+        <input type="hidden" name="next" value="{% url 'show_all' %}">
+    {% endif %}
+    <input type="submit" value="Login">
+
+
+</form>
+{% endblock %}
