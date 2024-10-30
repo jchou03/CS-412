@@ -12,11 +12,25 @@
     <ul>
         <li><a href="{% url 'show_all' %}">All Articles</a></li>
         <li><a href="{% url 'random' %}">Random</a></li>
+
+        {% if request.user.is_authenticated %}
+        
+        <li>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <input type="submit" value="Logout">
+            </form>
+        </li>   
+
+        {% else %}     
+        <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
     </ul>
 </nav>
 
 {% comment %} show list of articles {% endcomment %}
 <main class="grid-container"> <!-- was <div> -->
+    <p>{{request.user}}</p>
     {% for a in articles %}
         <article>
             {% comment %} this passes the article's primary key as a parameter to the url {% endcomment %}

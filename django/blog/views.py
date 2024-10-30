@@ -6,6 +6,7 @@ from . models import *
 from django.views.generic import *
 import random
 from . forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 class ShowAllView(ListView):
@@ -14,7 +15,11 @@ class ShowAllView(ListView):
     template_name = "blog/show_all.html"
     context_object_name = "articles"
     
-    
+    def dispatch(self, *args, **kwargs):
+        '''every time this class is called this method is called'''
+        print(f'self.request.user={self.request.user}')
+        return super().dispatch(*args, **kwargs)
+        
 class RandomArticleView(DetailView):
     '''a view to show one article at random'''
     model = Article
@@ -39,17 +44,25 @@ class ArticleView(DetailView):
     context_object_name = "article" 
         # singular name
         
-class CreateArticleView(CreateView):
+class CreateArticleView(LoginRequiredMixin, CreateView):
     '''a view to show/process the create Article form:
     on GET: sends back the form
     on POST: read form data, create an instance of comment'''
     
     form_class = CreateArticleForm
     template_name = "blog/create_article_form.html"
+    login_url="login"
+    # or could also define the 'get_login_url' function
     
     def form_valid(self, form):
         '''add debugging statements'''
         print(f'CreateArticleView.form_valid: form.cleaned_data={form.cleaned_data}')
+        
+        # find the user logged in
+        user = self.request.user
+        print(f'CreateArticleView:form_valid() user={user}')
+        form.instance.user = user
+        
         # delegate work to superclass
         return super().form_valid(form)
     

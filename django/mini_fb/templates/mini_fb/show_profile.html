@@ -5,14 +5,18 @@
 {% comment %} show a single profile {% endcomment %}
 
 <h1>{{profile.first_name}} {{profile.last_name}}</h1>
-<a href="{% url 'news_feed' profile.pk %}">News Feed</a>
+{% if request.user == profile.user %}
+    <a href="{% url 'news_feed' profile.pk %}">News Feed</a>
+{% endif %}
 
 <table>
     <tr><td class="img_container"><img src="{{profile.profile_image_url}}" alt="oopsy image gone" class="profile_img"></td></tr>
     <tr><td><p>{{profile.first_name}}  {{profile.last_name}}</p></td></tr>
     <tr><td><p>{{profile.city}}</p></td></tr>
     <tr><td><p>{{profile.email}}</p></td></tr>
-    <tr><td><a href="{% url 'update_profile' profile.pk %}">Update Profile</a></td></tr>
+    {% if request.user == profile.user %}
+        <tr><td><a href="{% url 'update_profile' profile.pk %}">Update Profile</a></td></tr>
+    {% endif %}
 </table>
 
 <h3>Friends</h3>
@@ -41,7 +45,9 @@
                 <img src='{{img.image.url}}' alt='{{img.image.url}}'>
             {% endfor %}
         </td>
-        <td><a href="{% url 'update_status' status.pk %}">Update Status</a><br/><a href="{% url 'delete_status' status.pk %}">Delete Status</a></td>
+        {% if request.user == profile.user %}
+            <td><a href="{% url 'update_status' status.pk %}">Update Status</a><br/><a href="{% url 'delete_status' status.pk %}">Delete Status</a></td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
