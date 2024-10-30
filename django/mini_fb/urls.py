@@ -4,6 +4,7 @@
 from django.urls import path
 from django.conf import settings
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path(r'', views.ShowAllProfilesView.as_view(), name="show_all_profiles"),
@@ -16,4 +17,7 @@ urlpatterns = [
     path(r'profile/<int:pk>/add_friend/<int:other_pk>', views.CreateFriendView.as_view(), name="add_friend"),
     path(r'profile/<int:pk>/friend_suggestions', views.ShowFriendSuggestionsView.as_view(), name="friend_suggestions"),
     path(r'profile/<int:pk>/news_feed', views.ShowNewsFeedView.as_view(), name="news_feed"),
+    # login/logout urls
+    path(r'login', auth_views.LoginView.as_view(template_name="mini_fb/login.html"), name="login"),
+    path(r'logout', auth_views.LogoutView.as_view(template_name="mini_fb/logged_out.html"), name="logout"),
 ]
