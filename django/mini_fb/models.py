@@ -12,7 +12,8 @@ class UserProfile(User):
     
     def get_profile_pk(self): 
         '''get the primary key of the Profile associated with this user'''
-        profiles = Profile.objects.fil
+        profiles = Profile.objects.filter(user=self)
+        return profiles.first().pk
 
 class Profile(models.Model):
     '''information about user profiles for our mini_fb application'''
