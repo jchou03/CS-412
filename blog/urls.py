@@ -14,4 +14,5 @@ urlpatterns = [
     # creating an authentication/sign on system for only the blog application
     path(r'login/', auth_views.LoginView.as_view(template_name="blog/login.html"), name="login"),
     path(r'logout/', auth_views.LogoutView.as_view(next_page="show_all"), name="logout"),
+    path(r'register/', views.RegistrationView.as_view(), name="register"),
 ]

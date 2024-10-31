@@ -48,5 +48,3 @@ class Comment(models.Model):
         '''return string representation of this object'''
         return f'{self.text}'
 
-
-    

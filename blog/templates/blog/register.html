@@ -1,0 +1,24 @@
+
+{% block content %}
+
+<header>
+    <h1>Mini Blog</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'show_all' %}">All Articles</a></li>
+        <li><a href="{% url 'random' %}">Random</a></li>
+    </ul>
+</nav>
+
+<h1>Register</h1>
+
+<form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    
+    {{form}}
+
+    <input type="submit" name="register" value="Register">
+</form>
+{% endblock %}
