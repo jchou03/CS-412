@@ -16,7 +16,7 @@
                 <input type="submit" name="create_status" value="Create Status">
 </form>
                 <!-- NOTE: this is a separate form for canceling -->
-                <form action="{% url 'show_profile' profile.pk %}">
+                <form action="{% url 'show_profile' logged_in_profile.pk %}">
                     <input type="submit" name="Cancel" value="Cancel">
                 </form>
             </td>
