@@ -12,7 +12,7 @@
          <nav class="navbar">
             <a href="{% url 'show_all_profiles' %}">Home</a>
             <a href="{% url 'create_profile' %}">Create Profile</a>
-            <a>User: {{request.user}}</a>
+            {% comment %} <a>User: {{request.user}}</a> {% endcomment %}
             {% if request.user.is_authenticated %}
                 <a href="{% url 'show_profile' logged_in_profile.pk %}">Profile</a>
                 <form method="POST" action="{% url 'logout' %}">

@@ -3,18 +3,6 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your models here.
 
-class UserProfile(User):
-    '''proxy model for a user to get their associated profile'''
-    class Meta:
-        '''define UserProfile as a proxy model for user'''
-        proxy = True
-        ordering = ('first_name', )
-    
-    def get_profile_pk(self): 
-        '''get the primary key of the Profile associated with this user'''
-        profiles = Profile.objects.filter(user=self)
-        return profiles.first().pk
-
 class Profile(models.Model):
     '''information about user profiles for our mini_fb application'''
     # user associated with a profile
