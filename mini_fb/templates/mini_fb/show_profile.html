@@ -20,7 +20,9 @@
 </table>
 
 <h3>Friends</h3>
-<a href="{% url 'friend_suggestions' %}">Friend Suggestions for {{profile.first_name}} {{profile.last_name}}</a>
+{% if request.user == profile.user %}
+    <a href="{% url 'friend_suggestions' %}">Friend Suggestions for {{profile.first_name}} {{profile.last_name}}</a>
+{% endif %}
 <table>
 {% for f in profile.get_friends %}
     <tr class="friend_display">

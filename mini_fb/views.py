@@ -5,6 +5,8 @@ from . forms import *
 from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # Create your views here.
 class MiniFBLoginRequiredMixin(LoginRequiredMixin):
@@ -50,6 +52,12 @@ class ShowProfilePageView(SignedInUserDetails, DetailView):
     template_name = "mini_fb/show_profile.html"
     context_object_name = "profile"
     
+    
+    def get_object(self):
+        '''override SignedInUserDetails implementation with the DetailView'''
+        return DetailView.get_object(self)
+        
+    
 class CreateProfileView(SignedInUserDetails, CreateView):
     '''view to enable users to create new profiles from UI
     
@@ -58,20 +66,39 @@ class CreateProfileView(SignedInUserDetails, CreateView):
     
     form_class = CreateProfileForm
     template_name="mini_fb/create_profile_form.html"
+    
+    def get_context_data(self, **kwargs):
+        '''add the user creation form to the context data variable'''
+        context = super().get_context_data(**kwargs)
+        form = UserCreationForm(self.request.POST)
+        print(f'form: {form}')
+        print(f'form isvalid: {form.is_valid()}')
+
+        context['UserCreationForm'] = form
+    
+        return context
+    
+    def form_valid(self, form):
+        '''create a new user and profile'''
+        print(f'profile creation was valid with inputs {self.request.POST}')
+        userform = UserCreationForm(self.request.POST)
+        
+        if not userform.is_valid():
+            # validate the userform and return response if there are errors
+            return self.render_to_response(self.get_context_data(form=form, UserCreationForm=userform))
+            
+        user = userform.save()
+        form.instance.user = user
+        # print(f'registered user: {user}')
+        login(self.request, user)
+
+        return super().form_valid(form)
+        
 
 class CreateStatusMessageView(MiniFBLoginRequiredMixin, SignedInUserDetails, CreateView):
     '''view to enable users to create new status messages'''
     form_class = CreateStatusMessageForm
     template_name="mini_fb/create_status_form.html"
-    
-    # def get_context_data(self, **kwargs) -> dict[str, any]:
-    #     '''build template of context data (dict of kv pairs)'''
-    #     context = super().get_context_data(**kwargs)
-    #     # get the profile with the same primary key
-    #     profile = Profile.objects.get(pk=self.kwargs['pk'])
-    #     # add profile to context variable
-    #     context['profile'] = profile
-    #     return context
     
     def form_valid(self, form):
         '''identify Profile object to attach to the StatusMessage'''
@@ -138,8 +165,6 @@ class CreateFriendView(MiniFBLoginRequiredMixin, SignedInUserDetails, View):
         print(self.kwargs)
         p1 = self.get_user_profile(self.request.user)
         p2 = Profile.objects.get(pk=self.kwargs["other_pk"])
-        print(p1)
-        print(p2)
         p1.add_friend(p2)
         
         return redirect('show_profile', pk=p1.pk)
