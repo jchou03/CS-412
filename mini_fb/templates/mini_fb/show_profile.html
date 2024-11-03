@@ -35,7 +35,9 @@
 <table class="status_messages">
     <tr>
         <th><strong>Status Messages:</strong></th>
-        <th><a href="{% url 'create_status' %}">New Status</a></th>
+        {% if request.user == profile.user %}
+            <th><a href="{% url 'create_status' %}">New Status</a></th>
+        {% endif %}    
     </tr>
     {% for status in profile.get_status_messages %}
 
