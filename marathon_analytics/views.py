@@ -11,14 +11,8 @@ class ResultListView(ListView):
     template_name = 'marathon_analytics/results.html'
     model=Result
     context_object_name = "results"
-    
-    def get_queryset(self):
-        '''limit results; return the set of Results'''
-        # use superclass to get the queryset
-        template_name = 'marathon_analytics/results.html'
-    model = Result
-    context_object_name = 'results'
     paginate_by = 50
+
     def get_queryset(self):
         # start with entire queryset
         qs = super().get_queryset().order_by('place_overall')
