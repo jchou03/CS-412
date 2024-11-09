@@ -1,0 +1,53 @@
+<!-- voter_analytics/search.html -->
+<h3>Search Form</h3>
+<table>
+<form action="{% url 'voters' %}">
+    <tr>
+        <th>Party:</th>
+        <td><select name="party">
+            <option value>Select Party</option>
+            {% for p in parties %}
+                <option value="{{p}}">{{p}}</option>
+            {% endfor %}
+        </select></td>
+    </tr>
+    <tr>
+        <th>Minimum Date of Birth</th>
+        <td><select name="min_birth">
+            <option value>Select Year</option>
+            {% for y in years %}
+                <option value="{{y}}">{{y}}</option>
+            {% endfor %}
+        </select></td>
+    </tr>
+    <tr>
+        <th>Max Date of Birth</th>
+        <td><select name="max_birth">
+            <option value>Select Year</option>
+            {% for y in years %}
+                <option value="{{y}}">{{y}}</option>
+            {% endfor %}
+        </select></td>
+    </tr>
+    <tr>
+        <th>Voter Score</th>
+        <td><select name="voter_score">
+            <option value>Select Score</option>
+            {% for s in voter_scores %}
+                <option value="{{s}}">{{s}}</option>
+            {% endfor %}
+        </select></td>
+    </tr>
+    {% for e in elections %}
+        <tr>
+            <th>Voted in {{e}}</th>
+            <td><input type="checkbox" name="{{e}}"></td>
+        </tr>
+    {% endfor %}
+    
+    <tr>
+        <td><input type="submit"></td>
+        <td></td>
+    </tr>
+</form>
+</table>
