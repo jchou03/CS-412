@@ -45,3 +45,16 @@ class VoterRecordsView(ListView):
         context['voter_scores'] = range(0, 6)
         context['elections'] = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
         return context
+    
+class VoterRecordView(DetailView):
+    '''display the record of a single voter'''
+    model=Voter
+    template_name="voter_analytics/voter.html"
+    context_object_name="voter"
+    
+    def get_context_data(self, **kwargs):
+        '''get context data for template'''
+        context = super().get_context_data(**kwargs)
+        context['fields'] = Voter._meta.fields
+        print(context['fields'])
+        return context

@@ -24,6 +24,7 @@
                 <td>{{v.birth_date}}</td>
                 <td>{{v.party}}</td>
                 <td>{{v.voter_score}}</td>
+                <td><a href="{% url 'voter' v.pk %}">Details</a></td>
             </tr>
             {% endfor %}
         </table>
