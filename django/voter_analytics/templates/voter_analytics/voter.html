@@ -1,0 +1,53 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<h1>{{voter.first_name}} {{voter.last_name}}</h1>
+<table>
+    <tr>
+        <th>Address</th>
+        <td><a href="https://www.google.com/maps/search/?api=1&query={{voter.address_street_number}}+{{voter.address_street_name}}+{{voter.address_apt_number}}+Newton+MA+{{voter.address_zip_code}}">
+            {{voter.address_street_number}} {{voter.address_street_name}} {{voter.address_apt_number}} {{voter.address_zip_code}}
+        </a></td>
+    </tr>
+    <tr>
+        <th>Birth Date</th>
+        <td>{{voter.birth_date}}</td>
+    </tr>
+    <tr>
+        <th>Voter Registration Date</th>
+        <td>{{voter.register_date}}</td>
+    </tr>
+    <tr>
+        <th>Party</th>
+        <td>{{voter.party}}</td>
+    </tr>
+    <tr>
+        <th>Precinct</th>
+        <td>{{voter.precinct}}</td>
+    </tr>
+    <tr>
+        <th>Voter Score</th>
+        <td>{{voter.voter_score}}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2020 State Election?</th>
+        <td>{{voter.v20state}}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2021 Town Election?</th>
+        <td>{{voter.v21town}}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2021 Primary Election?</th>
+        <td>{{voter.v21primary}}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2022 General Election?</th>
+        <td>{{voter.v22general}}</td>
+    </tr>
+    <tr>
+        <th>Voted in 2023 Town Election?</th>
+        <td>{{voter.v23town}}</td>
+    </tr>
+</table>
+{% endblock %}
