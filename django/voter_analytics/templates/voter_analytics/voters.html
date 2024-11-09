@@ -1,0 +1,52 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+    {% comment %} <div class="row">
+        {% include "marathon_analytics/search.html" %}    
+    </div> {% endcomment %}
+    <div class="row">
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Street Address</td>
+                <td>Date of Birth</td>
+                <td>Party</td>
+                <td>Voter Score</td>
+            </tr>
+    
+            {% for v in voters %}
+            <tr>
+                <td>{{v.first_name}}</td>
+                <td>{{v.last_name}}</td>
+                <td>{{v.address_street_number}} {{v.address_street_name}} {{v.address_apt_number}} {{v.address_zip_code}}</td>
+                <td>{{v.birth_date}}</td>
+                <td>{{v.party}}</td>
+                <td>{{v.voter_score}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="row">
+        {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li>
+                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+             
+                </li>
+            {% endif %}
+                <li class="">
+                    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                </li>
+            {% if page_obj.has_next %}
+                <li>
+                    <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                </li>
+            {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
