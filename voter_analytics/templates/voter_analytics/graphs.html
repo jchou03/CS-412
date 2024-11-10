@@ -1,0 +1,9 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+{{voter_birth_years|safe}}
+
+{{voter_parties|safe}}
+
+{{election_participation|safe}}
+{% endblock %}
