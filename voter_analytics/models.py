@@ -43,6 +43,9 @@ def bool_value(string: str):
     
 def load_data():
     '''function to load the data from the csv file'''
+    
+    Voter.objects.all().delete()
+    
     filename = '/Users/jared/Downloads/newton_voters.csv'
     f = open(filename)
     # remove the header lines
@@ -59,7 +62,7 @@ def load_data():
                       address_zip_code=fields[6],
                       birth_date=fields[7],
                       register_date=fields[8],
-                      party=fields[9],
+                      party=fields[9].strip(),
                       precinct=fields[10],
                       v20state=bool_value(fields[11]),
                       v21town=bool_value(fields[12]),
