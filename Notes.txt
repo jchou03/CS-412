@@ -9,3 +9,5 @@ py manage.py migrate (perform migration steps)
 
 in shell:
 from [project].[filename] import *
+
+https://cs-people.bu.edu/azs/cs412/assignments/final_project.html
