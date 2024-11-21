@@ -3,6 +3,44 @@
 
 {% block content %}
     <h1>{{trip.name}}</h1>
-    <p>{{trip.destination}}</p>
-    <p>{{trip.get_dates_string}}</p>
+    <p>{{trip.destination}}, {{trip.get_dates_string}}</p>
+
+    <table class="attendees_table">
+        <tr>
+            <th>Trip Attendees:</th>
+            <td>
+            {% for p in trip.get_attendees %}
+                <p>{{p}}</p>
+            {% endfor %}
+            </td>
+        </tr>
+    </table>
+
+    <table class="cost_table">
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Paid By</th>
+        </tr>
+        {% for cost in trip.get_costs %}
+        <tr>
+            <td>{{cost.item_name}}</td>
+            <td>{{cost.item_price}}</td>
+            {% if cost.actual_cost %}
+                <td>{{cost.paid_by}}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <table class="img_table">
+        {% for img in trip.get_images %}
+        <tr>
+            <td><img src="{{img.image.url}}" alt="image can't be loaded"></td>
+            <td>{{img.poster}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
