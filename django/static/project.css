@@ -1,0 +1,73 @@
+body {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+}
+
+.navbar {
+    list-style-type: none; 
+    background-color: #002A32; 
+    width: 200px; 
+    height: 100%; 
+    position: fixed;
+    overflow: auto;
+    font-family:'Courier New';
+    font-size: 18px;
+}
+
+.navbar a {
+    display: block; 
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.navbar input {
+    display: block; 
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    background-color: #023e8a; 
+    border: 0;
+    outline: none;
+    font-family:'Courier New';
+    font-size: 20px;
+}
+
+.navbar a:hover, .navbar input:hover{
+    background-color: #00b4d8;
+}
+
+.content {
+    background-color: #FFC6AC;
+    width: 100%;
+    padding: 5px;
+    margin-left: 200px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.content p {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.trip {
+    background-color: #C4A29E;
+    width: 95%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.trip:hover {
+    background-color: #EBA6A9;
+}

@@ -1,0 +1,9 @@
+<!-- project/templates/project/show_all_trips.html -->
+{% extends "project/base.html" %}
+
+{% block content %}
+    <h1>Trip Planner</h1>
+    {% for trip in trips %}
+        <a href="{% url 'show_trip' trip.pk %}" class="trip" >{{trip}}</a>
+    {% endfor %}
+{% endblock %}
