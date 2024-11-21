@@ -1,0 +1,27 @@
+<!-- project/templates/project/base.html -->
+
+{% load static %}
+
+<html>
+     <head>
+         <title>Trip Planner</title>
+         <link rel="stylesheet", href="{% static 'project.css' %}">
+     </head> 
+     <body>
+         <nav class="navbar">
+            <a href="{% url 'show_all_trips' %}">Show All Trips</a>
+        
+         </nav>
+
+        <div class="content">
+            {% block content %}
+                {% comment %} content will go here {% endcomment %}
+            {% endblock %}
+
+            <footer>
+                <h4>have fun~</h4>
+            </footer>
+        </div>
+         
+     </body>
+ </html>

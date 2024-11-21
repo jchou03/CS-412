@@ -9,9 +9,13 @@ class Trip(models.Model):
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     
+    def get_dates_string(self):
+        '''get a string of the trip's start and end date'''
+        return f'{self.start_date.month}/{self.start_date.day}-{self.end_date.month}/{self.end_date.day}'
+    
     def __str__(self):
         '''string representation of the model'''
-        return f'Trip: {self.name} to {self.destination} ({self.start_date.month}/{self.start_date.day}-{self.end_date.month}/{self.end_date.day})'
+        return f'Trip: {self.name} to {self.destination} ({self.get_dates_string()})'
     
 class Profile(models.Model):
     '''a model that represents a user of the app'''
