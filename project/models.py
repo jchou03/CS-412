@@ -17,6 +17,23 @@ class Trip(models.Model):
         '''string representation of the model'''
         return f'Trip: {self.name} to {self.destination} ({self.get_dates_string()})'
     
+    def get_attendees(self):
+        '''get the attendees of this trip'''
+        trip_attendees = AttendTrip.objects.filter(trip=self)
+        pks = [p.pk for p in trip_attendees]
+        attendees = Profile.objects.filter(pk__in=pks)
+        return attendees
+    
+    def get_costs(self):
+        '''get the costs associated with this trip'''
+        costs = Cost.objects.filter(trip=self)
+        return costs
+        
+    def get_images(self):
+        '''get the images associated with this trip'''
+        images = Image.objects.filter(trip=self)
+        return images
+    
 class Profile(models.Model):
     '''a model that represents a user of the app'''
     first_name = models.TextField(blank=False)
@@ -33,7 +50,7 @@ class Cost(models.Model):
     item_name = models.TextField(blank=False)
     item_price = models.FloatField(blank=False)
     actual_cost = models.BooleanField(blank=False)
-    paid_by = models.ForeignKey('Profile', on_delete=models.SET_DEFAULT, default=1)
+    paid_by = models.ForeignKey('Profile', on_delete=models.SET_DEFAULT, default=1, blank=True, null=True)
     trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
     
     def __str__(self):
