@@ -3,6 +3,9 @@
 
 {% block content %}
     <h1>Trip Planner</h1>
+    <div class="row">
+        {% include "project/search.html" %}    
+    </div>
     {% for trip in trips %}
         <a href="{% url 'show_trip' trip.pk %}" class="trip" >{{trip}}</a>
     {% endfor %}
