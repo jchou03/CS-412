@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import *
 from . models import *
+from . forms import *
 
 # Create your views here.
 class ShowAllTripsView(ListView):
@@ -46,3 +47,11 @@ class ShowTripView(DetailView):
     context_object_name = "trip"
     template_name = "project/show_trip.html"
     
+class CreateTripView(CreateView):
+    '''view to create a new trip'''
+    form_class = CreateTripForm
+    template_name = "project/create_trip.html"
+    
+    # def form_valid(self, form):
+    #     '''create a new trip based on the valid form submission'''
+        

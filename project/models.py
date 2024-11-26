@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Trip(models.Model):
@@ -33,6 +34,11 @@ class Trip(models.Model):
         '''get the images associated with this trip'''
         images = Image.objects.filter(trip=self)
         return images
+    
+    def get_absolute_url(self):
+        '''display a trip once a new trip has been created'''
+        return reverse("show_trip", kwargs={"pk": self.pk})
+    
     
 class Profile(models.Model):
     '''a model that represents a user of the app'''
