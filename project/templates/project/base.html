@@ -11,6 +11,16 @@
          <nav class="navbar">
             <a href="{% url 'show_all_trips' %}">Show All Trips</a>
             <a href="{% url 'create_trip' %}">Create Trip</a>
+            {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout">
+                </form>
+                <a>Signed in as: {{request.user}}</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            
+            {% endif %}
          </nav>
 
         <div class="content">

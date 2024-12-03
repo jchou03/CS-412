@@ -4,6 +4,31 @@ from . models import *
 from . forms import *
 
 # Create your views here.
+class SignedInUserDetails():
+    '''class to share sign in details'''
+    
+    def get_user_profile(self, user):
+        '''get a profile from a user'''
+        return Profile.objects.filter(user=user).first()
+    
+    def get_context_data(self, **kwargs):
+        '''update the context data to include'''
+        # find user who is logged in
+        print(f'request:{self.request.user}')
+        context = super().get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated:
+            # find profile 
+            # add to context data
+            profile = self.get_user_profile(self.request.user)
+            context['logged_in_profile'] = profile
+
+        return context
+    
+    def get_object(self):
+        '''get the associated profile for this view'''
+        return self.get_user_profile(self.request.user)   
+
 class ShowAllTripsView(ListView):
     '''view that displays all trips'''
     model = Trip
@@ -110,4 +135,19 @@ class AddAttendeeToTripView(CreateView):
     
     def get_success_url(self):
         return reverse('show_trip', kwargs=self.kwargs)
+    
+class CreateImageView(CreateView):
+    '''view to create a new image'''
+    form_class = CreateImageForm
+    template_name = "project/create_image.html"
+    
+    def get_context_data(self, **kwargs):
+        '''add context variables'''
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
+    
+    # def form_valid(self, form):
+    #     '''process successful form submission'''
+    #     # get the user 
     
