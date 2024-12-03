@@ -4,11 +4,11 @@ from . models import *
 from . forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.views.generic.base import ContextMixin
 
 # Create your views here.
-class SignedInUserDetails():
-    '''class to share sign in details'''
-    
+class UserDetailsMixin(object):
+    '''class to share sign in details'''    
     def get_user_profile(self, user):
         '''get a profile from a user'''
         return Profile.objects.filter(user=user).first()
@@ -16,22 +16,19 @@ class SignedInUserDetails():
     def get_context_data(self, **kwargs):
         '''update the context data to include'''
         # find user who is logged in
-        print(f'request:{self.request.user}')
+        # print(f'request:{self.request.user}')
         context = super().get_context_data(**kwargs)
-
         if self.request.user.is_authenticated:
             # find profile 
             # add to context data
             profile = self.get_user_profile(self.request.user)
             context['logged_in_profile'] = profile
+        else: 
+            context['logged_in_profile'] = None
 
         return context
-    
-    def get_object(self):
-        '''get the associated profile for this view'''
-        return self.get_user_profile(self.request.user)   
 
-class ShowAllTripsView(ListView):
+class ShowAllTripsView(UserDetailsMixin, ListView):
     '''view that displays all trips'''
     model = Trip
     context_object_name = "trips"
@@ -42,7 +39,7 @@ class ShowAllTripsView(ListView):
         context = super().get_context_data(**kwargs)
         # parameters to search for in a trip
         context['action_url'] = "show_all_trips"
-        
+                
         return context
     
     def get_queryset(self):
@@ -68,7 +65,7 @@ class ShowAllTripsView(ListView):
                         trips = trips.filter(end_date__year=vals[0], end_date__month=vals[1], end_date__day=vals[2])
         return trips
     
-class ShowTripView(DetailView):
+class ShowTripView(UserDetailsMixin, DetailView):
     '''a view that displays a single trip'''
     model = Trip
     context_object_name = "trip"
@@ -82,7 +79,7 @@ class CreateTripView(CreateView):
     # def form_valid(self, form):
     #     '''create a new trip based on the valid form submission'''
         
-class CreateCostView(CreateView):
+class CreateCostView(UserDetailsMixin, CreateView):
     '''view to create a new cost'''
     form_class = CreateCostForm
     template_name = "project/create_cost.html"
@@ -190,5 +187,3 @@ class CreateProfileView(CreateView):
         '''redirect URL after form submission'''
         return reverse('show_all_trips')    
         
-# class ShowProfileView(DetailView):
-#     '''detailed view displaying the details of a given profile'''

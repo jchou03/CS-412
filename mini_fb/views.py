@@ -27,6 +27,7 @@ class SignedInUserDetails():
         # find user who is logged in
         print(f'request:{self.request.user}')
         context = super().get_context_data(**kwargs)
+        print(f'context: {context}')
 
         if self.request.user.is_authenticated:
             # find profile 
@@ -38,7 +39,7 @@ class SignedInUserDetails():
     
     def get_object(self):
         '''get the associated profile for this view'''
-        return self.get_user_profile(self.request.user)   
+        return self.get_user_profile(self.request.user)
 
 class ShowAllProfilesView(SignedInUserDetails, ListView):
     '''a view to show all profiles'''
