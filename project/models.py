@@ -55,6 +55,10 @@ class Profile(models.Model):
         '''string representation of the model'''
         return f'{self.first_name} {self.last_name}'
     
+    def get_absolute_url(self):
+        '''get absolute url to display the profile after creating a new one'''
+        
+    
 class Cost(models.Model):
     '''a model that represents a planned or actual cost of the upcoming trip'''
     item_name = models.TextField(blank=False)

@@ -19,7 +19,7 @@
                 <a>Signed in as: {{request.user}}</a>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
-            
+                <a href="{% url 'create_profile' %}">Create Profile</a>
             {% endif %}
          </nav>
 

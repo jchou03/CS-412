@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 from . models import *
 from . forms import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # Create your views here.
 class SignedInUserDetails():
@@ -151,3 +153,42 @@ class CreateImageView(CreateView):
     #     '''process successful form submission'''
     #     # get the user 
     
+class CreateProfileView(CreateView):
+    '''view to create a new profile and user for the app'''
+    form_class = CreateProfileForm
+    template_name = "project/create_profile.html"
+    
+    def get_context_data(self, **kwargs):
+        '''define context variables
+            - also includes definition of a UserCreationForm
+            '''
+        context = super().get_context_data(**kwargs)
+        user_creation_form = UserCreationForm(self.request.POST)
+        print(f'user_creation_form: {user_creation_form}')
+        
+        context['UserCreationForm'] = user_creation_form
+        
+        return context
+
+    def form_valid(self, form):
+        '''process successful submission of the profile creation form'''
+        userform = UserCreationForm(self.request.POST)
+        
+        if not userform.is_valid():
+            # errors in creating django user, return with errors
+            return self.render_to_response(self.get_context_data(form=form, UserCreationForm=userform))
+        
+        # if the django user creation form was valid, create the user and log in the user
+        user = userform.save()
+        login(self.request, user)
+        
+        # attach this newly created user to the form
+        form.instance.user = user
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        '''redirect URL after form submission'''
+        return reverse('show_all_trips')    
+        
+# class ShowProfileView(DetailView):
+#     '''detailed view displaying the details of a given profile'''
