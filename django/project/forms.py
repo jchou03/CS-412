@@ -36,3 +36,10 @@ class CreateImageForm(forms.ModelForm):
         '''associate this form with the Image model'''
         model = Image
         fields = ['image']
+        
+class CreateProfileForm(forms.ModelForm):
+    '''form to create a new profile'''
+    class Meta:
+        '''associate this form with the Profile model'''
+        model = Profile
+        fields = ['first_name', 'last_name', 'phone_number']

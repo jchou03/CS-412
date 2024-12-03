@@ -15,4 +15,6 @@ urlpatterns = [
     path(r'create_img/<int:pk>', views.CreateImageView.as_view(), name="create_img"),
     path(r'login', auth_views.LoginView.as_view(template_name="project/login.html"), name="login"),
     path(r'logout', auth_views.LogoutView.as_view(template_name="project/logged_out.html"), name="logout"),
+    path(r'create_profile', views.CreateProfileView.as_view(), name="create_profile"),
+    # path(r'profile', views.ShowProfileView.as_view(), name="show_profile")
 ]
