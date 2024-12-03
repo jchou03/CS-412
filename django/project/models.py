@@ -21,7 +21,7 @@ class Trip(models.Model):
     def get_attendees(self):
         '''get the attendees of this trip'''
         trip_attendees = AttendTrip.objects.filter(trip=self)
-        pks = [p.pk for p in trip_attendees]
+        pks = [p.profile.pk for p in trip_attendees]
         attendees = Profile.objects.filter(pk__in=pks)
         return attendees
     
