@@ -1,0 +1,11 @@
+<!-- templates/project/create_trip.html -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+    <h1>Create A New Image!</h1>
+    <form method="POST" action="{% url 'create_img' pk %}">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit">
+    </form>
+{% endblock %}

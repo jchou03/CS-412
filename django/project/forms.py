@@ -29,3 +29,10 @@ class AddAttendeeToTripForm(forms.ModelForm):
         
     # def __init__(self, *args, **kwargs):
     #     '''update options for possible users to add'''
+    
+class CreateImageForm(forms.ModelForm):
+    '''form to create a new image'''
+    class Meta:
+        '''associate this form with the Image model'''
+        model = Image
+        fields = ['image']

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Trip(models.Model):
@@ -42,6 +43,9 @@ class Trip(models.Model):
     
 class Profile(models.Model):
     '''a model that represents a user of the app'''
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="django_user")
+    
     first_name = models.TextField(blank=False)
     last_name = models.TextField(blank=False)
     # phone number may be provided at a later date
