@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import *
 from . models import *
 from . forms import *
@@ -55,3 +55,59 @@ class CreateTripView(CreateView):
     # def form_valid(self, form):
     #     '''create a new trip based on the valid form submission'''
         
+class CreateCostView(CreateView):
+    '''view to create a new cost'''
+    form_class = CreateCostForm
+    template_name = "project/create_cost.html"
+    
+    def get_context_data(self, **kwargs):
+        '''add context variables'''
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
+    
+    def form_valid(self, form):
+        '''create a new cost based on a valid form submission'''
+        if (form.instance.paid_by == None):
+            # if paid by is empty, this is a planned cost, not an actual cost
+            form.instance.actual_cost = False
+        else:
+            form.instance.actual_cost = True
+            
+        # get the trip
+        trip = Trip.objects.get(pk=self.kwargs['pk'])
+        form.instance.trip = trip
+        
+        return super().form_valid(form)
+        
+    def get_success_url(self):
+        '''redirect URL after form submission'''
+        return reverse('show_trip', kwargs=self.kwargs)
+    
+class AddAttendeeToTripView(CreateView):
+    '''view to add a new attendee to a trip'''
+    form_class = AddAttendeeToTripForm
+    template_name = 'project/add_attendee_to_trip.html'
+    
+    def get_context_data(self, **kwargs):
+        '''add context variables'''
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
+    
+    def form_valid(self, form):
+        '''process form upon submission'''
+        trip = Trip.objects.get(pk=self.kwargs['pk'])
+        form.instance.trip = trip    
+        
+        # check that this profile hasn't been added to the trip already
+        attendees = trip.get_attendees()
+        if form.instance.profile in attendees:
+            print(f'the profie {form.instance.profile} is already attending the trip {trip}')
+            return redirect('show_trip', pk=trip.pk)
+        else:
+            return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('show_trip', kwargs=self.kwargs)
+    

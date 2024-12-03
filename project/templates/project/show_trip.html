@@ -13,6 +13,7 @@
                 <p>{{p}}</p>
             {% endfor %}
             </td>
+            <td><a href="{% url 'add_attendee' trip.pk %}">Add Attendee</a></td>
         </tr>
     </table>
 
