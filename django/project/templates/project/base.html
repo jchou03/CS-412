@@ -16,7 +16,8 @@
                     {% csrf_token %}
                     <input type="submit" value="Logout">
                 </form>
-                <a>Signed in as: {{request.user}}</a>
+                {% comment %} <a>Signed in as: {{request.user}}</a> {% endcomment %}
+                <a>Signed in as: {{logged_in_profile}}</a>
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'create_profile' %}">Create Profile</a>
