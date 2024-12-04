@@ -88,6 +88,14 @@ class CreateTripView(CreateView):
     '''view to create a new trip'''
     form_class = CreateTripForm
     template_name = "project/create_trip.html"
+    
+class DeleteTripView(UserDetailsMixin, DeleteView):
+    '''view to delete an existing trip'''
+    model = Trip
+    template_name = "project/delete_trip.html"
+    
+    def get_success_url(self):
+        return reverse('show_all_trips')
         
 class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new cost'''

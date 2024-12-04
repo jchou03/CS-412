@@ -60,4 +60,6 @@
         </tr>
         {% endfor %}
     </table>
+
+    <a href="{% url 'delete_trip' trip.pk %}">Delete Trip</a>
 {% endblock %}
