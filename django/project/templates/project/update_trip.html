@@ -1,0 +1,25 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+
+<h2>Update this trip</h2>
+
+<h4>{{trip}}</h4>
+
+<table>
+    <form method="POST"> 
+    {% csrf_token %}
+    {{form.as_table}}
+    <tr>
+        <td></td>
+        <td>
+            <input type="submit" name="update_trip" value="Update Trip">
+    </form>
+            <form action="{% url 'show_trip' trip.pk %}">
+                <input type="submit" name="cancel" value="Cancel">
+            </form>
+        </td>
+    </tr>
+</table>
+
+{% endblock %}

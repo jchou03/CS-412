@@ -2,12 +2,19 @@ from django import forms
 from .models import *
 
 class CreateTripForm(forms.ModelForm):
-    '''form to create a profile in the database'''
+    '''form to create a trip in the database'''
     class Meta:
-        '''associate this form with the Profile model'''
+        '''associate this form with the Trip model'''
         model = Trip
         fields = ['name', 'destination', 'start_date', 'end_date']
 
+class UpdateTripForm(forms.ModelForm):
+    '''form to update an existing trip'''
+    class Meta:
+        '''associate this form with the Trip model'''
+        model = Trip
+        fields = ['name', 'destination', 'start_date', 'end_date']
+        
 class CreateCostForm(forms.ModelForm):
     '''form to create a new cost'''
     class Meta:
