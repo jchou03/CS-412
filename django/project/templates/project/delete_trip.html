@@ -1,0 +1,25 @@
+{% extends 'project/base.html' %}
+{% comment %} page for users to delete images {% endcomment %}
+{% block content %}
+
+<h2>Are you sure you want to delete this trip? This action cannot be undone...</h2>
+
+<h4>{{trip}}</h4>
+
+<table>
+    <tr>
+        <td>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="submit" name="delete_trip" value="Delete Trip">
+            </form>
+        </td>
+        <td>
+            <form action="{% url 'show_trip' trip.pk %}">
+                <input type="submit" name="cancel" value="Cancel">
+            </form>
+        </td>
+    </tr>
+</table>
+
+{% endblock %}
