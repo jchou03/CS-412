@@ -8,12 +8,15 @@
     <table class="attendees_table">
         <tr>
             <th>Trip Attendees:</th>
-            <td>
-            {% for p in trip.get_attendees %}
-                <p>{{p}}</p>
-            {% endfor %}
-            </td>
+        </tr>
+        {% for p in trip.get_attendees %}
+        <tr>
+            <td><p>{{p}}</p></td>
+        </tr>
+        {% endfor %}
+        <tr>
             <td><a href="{% url 'add_attendee' trip.pk %}">Add Attendee</a></td>
+            <td><a href="{% url 'remove_attendees' trip.pk %}">Remove Attendees</a></td>
         </tr>
     </table>
 
@@ -49,7 +52,7 @@
 
     <table class="img_table">
         <tr>
-            <td><a href="{% url 'create_img' trip.pk %}">Post Image (not working yet)</a></td>
+            <td><a href="{% url 'create_img' trip.pk %}">Post Image</a></td>
             <td></td>
         </tr>
         {% for img in trip.get_images %}

@@ -1,0 +1,22 @@
+<!-- project/templates/project/show_trip.html -->
+{% extends "project/base.html" %}
+
+{% block content %}
+    <h1>{{trip.name}}</h1>
+    <p>{{trip.destination}}, {{trip.get_dates_string}}</p>
+
+    <table class="attendees_table">
+        <tr>
+            <th>Trip Attendees (removal):</th>
+        </tr>
+        {% for p in trip.get_attendees %}
+        <tr>
+            <td><a href="{% url 'remove_attendee' trip_pk=trip.pk pk=p.pk %}">Remove {{p}}</a></td>
+        </tr>
+        {% endfor %}
+            
+    </table>
+
+    <a href="{% url 'show_trip' trip.pk %}">Done</a>
+
+{% endblock %}
