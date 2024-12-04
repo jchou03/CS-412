@@ -147,7 +147,7 @@ class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
         return redirect('show_trip', pk=self.kwargs['trip_pk'])
     
     
-class AddAttendeeToTripView(AssociatedTripMixin, CreateView):
+class AddAttendeeToTripView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to add a new attendee to a trip'''
     form_class = AddAttendeeToTripForm
     template_name = 'project/add_attendee_to_trip.html'
@@ -164,6 +164,31 @@ class AddAttendeeToTripView(AssociatedTripMixin, CreateView):
             return redirect('show_trip', pk=trip.pk)
         else:
             return super().form_valid(form)
+    
+class RemoveAttendeesView(UserDetailsMixin, DetailView):
+    '''view to display the list of attendees to enable removal'''
+    model = Trip
+    template_name = "project/remove_attendees.html"
+    context_object_name = "trip"
+    
+    def get_context_data(self, **kwargs):
+        '''update context variables to include the signed in user'''
+        self.kwargs['trip_pk'] = self.kwargs['pk']
+        return super().get_context_data(**kwargs)
+    
+class RemoveAttendeeView(View):
+    '''view to remove a user from a trip'''
+    def dispatch(self, request, *args, **kwargs):
+        '''view to remove an attendee from the trip'''
+        trip = Trip.objects.get(pk=self.kwargs['trip_pk'])
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        
+        attendee_relations = AttendTrip.objects.filter(trip=trip) & AttendTrip.objects.filter(profile=profile)
+        
+        for r in attendee_relations:
+            r.delete()
+        
+        return redirect('remove_attendees', pk=self.kwargs['trip_pk'])
     
 class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new image'''
