@@ -19,6 +19,13 @@ class CreateCostForm(forms.ModelForm):
         '''update required state of certain fields'''
         super().__init__(*args, **kwargs)
         self.fields['paid_by'].required = False
+        
+class UpdateCostForm(forms.ModelForm):
+    '''form to update properties of a specific cost'''
+    class Meta:
+        '''associate this form with the cost model'''
+        model = Cost
+        fields = ['item_name', 'item_price', 'paid_by']
 
 class AddAttendeeToTripForm(forms.ModelForm):
     '''form to add a new attendee to a trip'''
