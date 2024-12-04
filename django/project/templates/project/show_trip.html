@@ -22,6 +22,7 @@
             <th>Item</th>
             <th>Price</th>
             <th>Paid By</th>
+            <th>Update</th>
         </tr>
         {% for cost in trip.get_costs %}
         <tr>
@@ -32,11 +33,16 @@
             {% else %}
                 <td></td>
             {% endif %}
+            <td>
+                <a href="">Update</a>
+                <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
         <tr>
-            <td>{{logged_in_profile}}</td>
+            <td></td>
             <td><a href="{% url 'create_cost' trip.pk %}">Add Cost</a></td>
+            <td></td>
             <td></td>
         </tr>
     </table>

@@ -108,6 +108,19 @@ class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
         
         return super().form_valid(form)
     
+class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
+    '''view to delete a new cost'''
+    def dispatch(self, request, *args, **kwargs):
+        '''function to handle the immediate deletion of a cost'''
+        print(f'we are trying to delete a cost')
+        
+        print(self.kwargs)
+        cost = Cost.objects.get(pk=self.kwargs['pk'])
+        
+        cost.delete()
+        return redirect('show_trip', pk=self.kwargs['trip_pk'])
+    
+    
 class AddAttendeeToTripView(AssociatedTripMixin, CreateView):
     '''view to add a new attendee to a trip'''
     form_class = AddAttendeeToTripForm
