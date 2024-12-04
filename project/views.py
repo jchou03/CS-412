@@ -96,6 +96,18 @@ class DeleteTripView(UserDetailsMixin, DeleteView):
     
     def get_success_url(self):
         return reverse('show_all_trips')
+    
+class UpdateTripView(UserDetailsMixin, UpdateView):
+    '''view to update an existing trip'''
+    model = Trip
+    form_class = UpdateTripForm
+    template_name = "project/update_trip.html"
+    context_object_name = "trip"
+    
+    def get_success_url(self):
+        '''redirect URL after successful update'''
+        self.kwargs['pk'] = self.get_context_data()['object'].pk
+        return reverse('show_trip', kwargs = self.kwargs)
         
 class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new cost'''

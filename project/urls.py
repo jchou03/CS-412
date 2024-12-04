@@ -13,7 +13,8 @@ urlpatterns = [
     # trip views
     path(r'trip/<int:pk>', views.ShowTripView.as_view(), name="show_trip"),
     path(r'create_trip', views.CreateTripView.as_view(), name="create_trip"),
-    path(r'delete_trip/<int:pk>', views.DeleteTripView.as_view(), name="delete_trip"),
+    path(r'trip/<int:pk>/delete', views.DeleteTripView.as_view(), name="delete_trip"),
+    path(r'trip/<int:pk>/update', views.UpdateTripView.as_view(), name="update_trip"),
     
     # cost views
     path(r'trip/<int:trip_pk>/create_cost', views.CreateCostView.as_view(), name="create_cost"),
