@@ -108,6 +108,12 @@ class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
         
         return super().form_valid(form)
     
+class UpdateCostView(UserDetailsMixin, AssociatedTripMixin, UpdateView):
+    '''view to allow users to update parameters of costs on the trip'''
+    model = Cost
+    form_class = UpdateCostForm
+    template_name = 'project/update_cost.html'
+    
 class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
     '''view to delete a new cost'''
     def dispatch(self, request, *args, **kwargs):

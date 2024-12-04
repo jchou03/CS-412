@@ -34,7 +34,7 @@
                 <td></td>
             {% endif %}
             <td>
-                <a href="">Update</a>
+                <a href="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">Update</a>
                 <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">Delete</a>
             </td>
         </tr>

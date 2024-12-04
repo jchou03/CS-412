@@ -17,6 +17,7 @@ urlpatterns = [
     # cost views
     path(r'trip/<int:trip_pk>/create_cost', views.CreateCostView.as_view(), name="create_cost"),
     path(r'trip/<int:trip_pk>/delete_cost/<int:pk>', views.DeleteCostView.as_view(), name="delete_cost"),
+    path(r'trip/<int:trip_pk>/update_cost/<int:pk>', views.UpdateCostView.as_view(), name="update_cost"),
     
     # attendee views
     path(r'trip/<int:trip_pk>/add_attendee', views.AddAttendeeToTripView.as_view(), name="add_attendee"),
