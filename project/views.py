@@ -126,8 +126,6 @@ class AddAttendeeToTripView(AssociatedTripMixin, CreateView):
         else:
             return super().form_valid(form)
     
-    
-    
 class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new image'''
     form_class = CreateImageForm
@@ -149,9 +147,11 @@ class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
         
         return super().form_valid(form)
 
-    # def get_success_url(self):
-    #     '''redirect url to the trip that the newly created object is attached to'''
-    #     return reverse('show_trip', kwargs=self.kwargs)
+class DeleteImageView(UserDetailsMixin, AssociatedTripMixin, DeleteView):
+    '''deletion page for images'''
+    model = Image
+    template_name = "project/delete_image.html"
+    context_object_name = "image"
     
 class CreateProfileView(CreateView):
     '''view to create a new profile and user for the app'''

@@ -17,4 +17,5 @@ urlpatterns = [
     path(r'logout', auth_views.LogoutView.as_view(template_name="project/logged_out.html"), name="logout"),
     path(r'create_profile', views.CreateProfileView.as_view(), name="create_profile"),
     # path(r'profile', views.ShowProfileView.as_view(), name="show_profile")
+    path(r'trip/<int:trip_pk>/delete_image/<int:pk>', views.DeleteImageView.as_view(), name="delete_image")
 ]
