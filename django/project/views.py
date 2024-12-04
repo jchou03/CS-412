@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.views.generic.base import ContextMixin
 
-# Create your views here.
+# custom mixins
 class UserDetailsMixin(object):
     '''class to share sign in details'''    
     def get_user_profile(self, user):
@@ -27,7 +27,20 @@ class UserDetailsMixin(object):
             context['logged_in_profile'] = None
 
         return context
+    
+class AssociatedTripMixin():
+    '''mixin to represent shared behavior for views that require relationships to a specific trip'''
+    def get_context_data(self, **kwargs):
+        '''add primary key of the associated trip'''
+        context = super().get_context_data(**kwargs)
+        context['trip_pk'] = self.kwargs['trip_pk']
+        return context
+    
+    def get_success_url(self):
+        '''redirect url to the trip that the newly created object is attached to'''
+        return reverse('show_trip', kwargs={"pk":self.kwargs["trip_pk"]})
 
+# views
 class ShowAllTripsView(UserDetailsMixin, ListView):
     '''view that displays all trips'''
     model = Trip
@@ -75,20 +88,11 @@ class CreateTripView(CreateView):
     '''view to create a new trip'''
     form_class = CreateTripForm
     template_name = "project/create_trip.html"
-    
-    # def form_valid(self, form):
-    #     '''create a new trip based on the valid form submission'''
         
-class CreateCostView(UserDetailsMixin, CreateView):
+class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new cost'''
     form_class = CreateCostForm
     template_name = "project/create_cost.html"
-    
-    def get_context_data(self, **kwargs):
-        '''add context variables'''
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
-        return context
     
     def form_valid(self, form):
         '''create a new cost based on a valid form submission'''
@@ -99,29 +103,19 @@ class CreateCostView(UserDetailsMixin, CreateView):
             form.instance.actual_cost = True
             
         # get the trip
-        trip = Trip.objects.get(pk=self.kwargs['pk'])
+        trip = Trip.objects.get(pk=self.kwargs['trip_pk'])
         form.instance.trip = trip
         
         return super().form_valid(form)
-        
-    def get_success_url(self):
-        '''redirect URL after form submission'''
-        return reverse('show_trip', kwargs=self.kwargs)
     
-class AddAttendeeToTripView(CreateView):
+class AddAttendeeToTripView(AssociatedTripMixin, CreateView):
     '''view to add a new attendee to a trip'''
     form_class = AddAttendeeToTripForm
     template_name = 'project/add_attendee_to_trip.html'
     
-    def get_context_data(self, **kwargs):
-        '''add context variables'''
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
-        return context
-    
     def form_valid(self, form):
         '''process form upon submission'''
-        trip = Trip.objects.get(pk=self.kwargs['pk'])
+        trip = Trip.objects.get(pk=self.kwargs['trip_pk'])
         form.instance.trip = trip    
         
         # check that this profile hasn't been added to the trip already
@@ -132,23 +126,32 @@ class AddAttendeeToTripView(CreateView):
         else:
             return super().form_valid(form)
     
-    def get_success_url(self):
-        return reverse('show_trip', kwargs=self.kwargs)
     
-class CreateImageView(CreateView):
+    
+class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new image'''
     form_class = CreateImageForm
     template_name = "project/create_image.html"
     
-    def get_context_data(self, **kwargs):
-        '''add context variables'''
-        context = super().get_context_data(**kwargs)
-        context['pk'] = self.kwargs['pk']
-        return context
-    
-    # def form_valid(self, form):
-    #     '''process successful form submission'''
-    #     # get the user 
+    def form_valid(self, form):
+        '''process successful form submission'''
+        context = self.get_context_data()
+        print(f"in form valid with context: {context}")
+        
+        # get the trip associated with this image
+        trip = Trip.objects.get(pk=context["trip_pk"])
+        
+        # get the user that posted this image and ensure that the poster is an attendee of the trip
+        user_profile = context['logged_in_profile']
+        
+        form.instance.trip = trip
+        form.instance.poster = user_profile
+        
+        return super().form_valid(form)
+
+    # def get_success_url(self):
+    #     '''redirect url to the trip that the newly created object is attached to'''
+    #     return reverse('show_trip', kwargs=self.kwargs)
     
 class CreateProfileView(CreateView):
     '''view to create a new profile and user for the app'''

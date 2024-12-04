@@ -3,7 +3,7 @@
 
 {% block content %}
     <h1>Create A New Cost!</h1>
-    <form method="POST" action="{% url 'add_attendee' pk %}">
+    <form method="POST" action="{% url 'add_attendee' trip_pk %}">
         {% csrf_token %}
         {{form}}
         <input type="submit">
