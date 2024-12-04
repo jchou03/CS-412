@@ -50,7 +50,7 @@
         <tr>
             <td><img src="{{img.image.url}}" alt="image can't be loaded"></td>
             <td>{{img.poster}}</td>
-            <td><a href="{% url '' %}"></a></td>
+            <td><a href="{% url 'delete_image' trip_pk=trip.pk pk=img.pk %}">Delete</a></td>
         </tr>
         {% endfor %}
     </table>
