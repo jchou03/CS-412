@@ -84,6 +84,18 @@ class ShowTripView(UserDetailsMixin, DetailView):
     context_object_name = "trip"
     template_name = "project/show_trip.html"
     
+    def get_context_data(self, **kwargs):
+        '''context variables for displaying trip details'''
+        context = super().get_context_data(**kwargs)
+        
+        if context['logged_in_profile'] != None and context['logged_in_profile'] in self.get_object().get_attendees():
+            # this means a user is logged in
+            context['is_attendee'] = True
+        else:
+            context['is_attendee'] = False
+        
+        return context
+    
 class CreateTripView(CreateView):
     '''view to create a new trip'''
     form_class = CreateTripForm

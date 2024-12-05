@@ -14,10 +14,12 @@
             <td><p>{{p}}</p></td>
         </tr>
         {% endfor %}
-        <tr>
-            <td><a href="{% url 'add_attendee' trip.pk %}">Add Attendee</a></td>
-            <td><a href="{% url 'remove_attendees' trip.pk %}">Remove Attendees</a></td>
-        </tr>
+        {% if is_attendee %}
+            <tr>
+                <td><a href="{% url 'add_attendee' trip.pk %}">Add Attendee</a></td>
+                <td><a href="{% url 'remove_attendees' trip.pk %}">Remove Attendees</a></td>
+            </tr>
+        {% endif %}
     </table>
 
     <table class="cost_table">
@@ -25,7 +27,9 @@
             <th>Item</th>
             <th>Price</th>
             <th>Paid By</th>
-            <th>Update</th>
+            {% if is_attendee %}
+                <th>Update</th>
+            {% endif %}
         </tr>
         {% for cost in trip.get_costs %}
         <tr>
@@ -45,27 +49,32 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td>
-                    <input type="submit" name="update_cost" value="Update Cost">
-                    {% comment %} <a href="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">Update</a> {% endcomment %}
-                    <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">Delete</a>
-                </td>
+                {% if is_attendee %}
+                    <td>
+                        <input type="submit" name="update_cost" value="Update Cost">
+                        <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">Delete</a>
+                    </td>
+                {% endif %}
             </form>
         </tr>
         {% endfor %}
-        <tr>
-            <td></td>
-            <td><a href="{% url 'create_cost' trip.pk %}">Add Cost</a></td>
-            <td></td>
-            <td></td>
-        </tr>
+        {% if is_attendee %}
+            <tr>
+                <td></td>
+                <td><a href="{% url 'create_cost' trip.pk %}">Add Cost</a></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
     </table>
 
     <table class="img_table">
-        <tr>
-            <td><a href="{% url 'create_img' trip.pk %}">Post Image</a></td>
-            <td></td>
-        </tr>
+        {% if is_attendee %}
+            <tr>
+                <td><a href="{% url 'create_img' trip.pk %}">Post Image</a></td>
+                <td></td>
+            </tr>
+        {% endif %}
         {% for img in trip.get_images %}
         <tr>
             <td><img src="{{img.image.url}}" alt="image can't be loaded"></td>
@@ -75,5 +84,7 @@
         {% endfor %}
     </table>
 
-    <a href="{% url 'delete_trip' trip.pk %}">Delete Trip</a>
+    {% if is_attendee %}
+        <a href="{% url 'delete_trip' trip.pk %}">Delete Trip</a>
+    {% endif %}
 {% endblock %}
