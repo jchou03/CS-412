@@ -5,6 +5,7 @@ from . forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.views.generic.base import ContextMixin
+from urllib.parse import urlencode
 
 # custom mixins
 class UserDetailsMixin(object):
@@ -206,6 +207,30 @@ class RemoveAttendeeView(View):
             r.delete()
         
         return redirect('remove_attendees', pk=self.kwargs['trip_pk'])
+    
+class JoinTripView(UserDetailsMixin, View):
+    '''view to process users joining an existing trip'''
+    def dispatch(self, request, *args, **kwargs):
+        '''process adding the current user to a trip'''
+
+        if request.user.is_authenticated :
+            # first check that there is a user authenticated
+            profile = self.get_user_profile(request.user)
+            
+            # add this user as an attendee
+            trip = Trip.objects.get(pk=self.kwargs['pk'])
+            
+            attend_trip = AttendTrip(trip=trip, profile=profile)
+            attend_trip.save()
+            
+            return redirect('show_trip', pk=self.kwargs['pk'])
+        else:
+            
+            # make sure to redirect with a next url assigned
+            base_url = reverse('login')
+            query_str = urlencode({'next': reverse('show_trip', kwargs={'pk': 1})})
+            url = '{}?{}'.format(base_url, query_str)
+            return redirect(url)
     
 class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new image'''

@@ -19,6 +19,10 @@
                 <td><a href="{% url 'add_attendee' trip.pk %}">Add Attendee</a></td>
                 <td><a href="{% url 'remove_attendees' trip.pk %}">Remove Attendees</a></td>
             </tr>
+        {% else %}
+            <tr>
+                <td><a href="{% url 'join_trip' trip.pk %}">Join Trip</a></td>
+            </tr>
         {% endif %}
     </table>
 
@@ -35,7 +39,7 @@
         <tr>
             <form method="POST" action="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">
                 {% csrf_token %}
-                <td><textarea name="item_name" value="{{cost.item_name}}">{{cost.item_name}}</textarea></td>
+                <td><input type="text" name="item_name" value="{{cost.item_name}}"></td>
                 <td><input type="number" name="item_price" value="{{cost.item_price}}"></td>
                 <td>
                     <select name="paid_by">
