@@ -53,7 +53,6 @@ class ShowProfilePageView(SignedInUserDetails, DetailView):
     template_name = "mini_fb/show_profile.html"
     context_object_name = "profile"
     
-    
     def get_object(self):
         '''override SignedInUserDetails implementation with the DetailView'''
         return DetailView.get_object(self)
