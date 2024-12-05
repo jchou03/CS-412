@@ -134,6 +134,11 @@ class UpdateCostView(UserDetailsMixin, AssociatedTripMixin, UpdateView):
     form_class = UpdateCostForm
     template_name = 'project/update_cost.html'
     
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        
+        return super().post(request, *args, **kwargs)
+    
 class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
     '''view to delete a new cost'''
     def dispatch(self, request, *args, **kwargs):

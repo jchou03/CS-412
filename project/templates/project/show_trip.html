@@ -29,17 +29,28 @@
         </tr>
         {% for cost in trip.get_costs %}
         <tr>
-            <td>{{cost.item_name}}</td>
-            <td>{{cost.item_price}}</td>
-            {% if cost.actual_cost %}
-                <td>{{cost.paid_by}}</td>
-            {% else %}
-                <td></td>
-            {% endif %}
-            <td>
-                <a href="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">Update</a>
-                <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">Delete</a>
-            </td>
+            <form method="POST" action="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">
+                {% csrf_token %}
+                <td><textarea name="item_name" value="{{cost.item_name}}">{{cost.item_name}}</textarea></td>
+                <td><input type="number" name="item_price" value="{{cost.item_price}}"></td>
+                <td>
+                    <select name="paid_by">
+                        <option value>---------</option>
+                        {% for p in trip.get_attendees %}
+                            {% if cost.paid_by == p %}
+                                <option value="{{p.pk}}" selected>{{p}}</option>
+                            {% else %}
+                                <option value="{{p.pk}}">{{p}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" name="update_cost" value="Update Cost">
+                    {% comment %} <a href="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">Update</a> {% endcomment %}
+                    <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">Delete</a>
+                </td>
+            </form>
         </tr>
         {% endfor %}
         <tr>
