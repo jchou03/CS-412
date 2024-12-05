@@ -14,17 +14,22 @@
             <td><p>{{p}}</p></td>
         </tr>
         {% endfor %}
+    </table>
+
+    <div class="controls">
         {% if is_attendee %}
             <tr>
-                <td><a href="{% url 'add_attendee' trip.pk %}">Add Attendee</a></td>
-                <td><a href="{% url 'remove_attendees' trip.pk %}">Remove Attendees</a></td>
+                <td><a href="{% url 'add_attendee' trip.pk %}" class="button_link">Add Attendee</a></td>
+                <td><a href="{% url 'remove_attendees' trip.pk %}" class="button_link">Remove Attendees</a></td>
             </tr>
         {% else %}
             <tr>
-                <td><a href="{% url 'join_trip' trip.pk %}">Join Trip</a></td>
+                <td><a href="{% url 'join_trip' trip.pk %}" class="button_link">Join Trip</a></td>
             </tr>
         {% endif %}
-    </table>
+        <a href="{% url 'create_cost' trip.pk %}" class="button_link">Add Cost</a>
+        <a href="{% url 'create_img' trip.pk %}" class="button_link">Post Image</a>
+    </div>
 
     <table class="cost_table">
         <tr>
@@ -55,30 +60,19 @@
                 </td>
                 {% if is_attendee %}
                     <td>
-                        <input type="submit" name="update_cost" value="Update Cost">
-                        <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">Delete</a>
+                        <input type="submit" name="update_cost" value="Update Cost" class="cost_update">
+            </form>
+            <form action="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}">
+                        <input type="submit" name="delete_cost" value="Delete Cost" class="cost_update">
+                        {% comment %} <a href="{% url 'delete_cost' trip_pk=trip.pk pk=cost.pk %}" class="cost_update">Delete</a> {% endcomment %}
                     </td>
                 {% endif %}
             </form>
         </tr>
         {% endfor %}
-        {% if is_attendee %}
-            <tr>
-                <td></td>
-                <td><a href="{% url 'create_cost' trip.pk %}">Add Cost</a></td>
-                <td></td>
-                <td></td>
-            </tr>
-        {% endif %}
     </table>
 
     <table class="img_table">
-        {% if is_attendee %}
-            <tr>
-                <td><a href="{% url 'create_img' trip.pk %}">Post Image</a></td>
-                <td></td>
-            </tr>
-        {% endif %}
         {% for img in trip.get_images %}
         <tr>
             <td><img src="{{img.image.url}}" alt="image can't be loaded"></td>

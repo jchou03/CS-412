@@ -4,6 +4,7 @@ body {
     margin: 0px;
 }
 
+/* navbar styling */
 .navbar {
     list-style-type: none; 
     background-color: #002A32; 
@@ -37,7 +38,7 @@ body {
     font-size: 20px;
 }
 
-.navbar form {
+form {
     margin: 0px;
 }
 
@@ -58,11 +59,7 @@ body {
     overflow: auto;
 }
 
-/* .content p {
-    margin-left: 20px;
-    margin-right: 20px;
-} */
-
+/* show all trips styling */
 .trip {
     background-color: #C4A29E;
     width: 95%;
@@ -81,6 +78,7 @@ body {
     color: #002A32;
 }
 
+/* cost table styling */
 .cost_table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -96,7 +94,7 @@ body {
 
 .cost_table tr:nth-child(odd){background-color: #B3DDE2}
   
-.cost_table tr:hover {background-color: #EEC6CA;}
+/* .cost_table tr:hover {background-color: #EEC6CA;} */
   
 .cost_table th {
     padding-top: 12px;
@@ -106,7 +104,19 @@ body {
     color: white;
 }
 
-input, select {
+.cost_update{
+    width: 100%;
+    text-align: center;
+    padding: 6px 10px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #E0FBFC;
+}
+
+/* general form styling */
+input, select{
     width: 100%;
     padding: 12px 20px;
     height: 60px;
@@ -115,20 +125,15 @@ input, select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: #E0FBFC;
 }
 
-textarea {
-    width: 100%;
-    height: 60px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    resize: none;
-    overflow: auto;
+
+input:hover, select:hover {
+    background-color: #EEC6CA;
 }
 
+/* image display styling */
 .img_table {
     margin-left: auto;
     margin-right: auto;
@@ -146,4 +151,32 @@ textarea {
 .delete_image {
     max-width: 500px;
     max-height: 500px;
+}
+
+table {
+    margin: 10px;
+}
+
+/* link button styling */
+.controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.button_link {
+    padding: 15px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    background-color: #9DB4C0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.button_link:hover {
+    background-color:#EEC6CA;
 }
