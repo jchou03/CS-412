@@ -231,6 +231,27 @@ class JoinTripView(UserDetailsMixin, View):
             query_str = urlencode({'next': reverse('show_trip', kwargs={'pk': 1})})
             url = '{}?{}'.format(base_url, query_str)
             return redirect(url)
+        
+class LeaveTripView(UserDetailsMixin, DetailView):
+    '''view to process a trip attendee leaving the trip'''
+    model = Trip
+    template_name = "project/delete_attend_trip.html"
+    context_object_name = "trip"
+    
+    def post(self, request, *args, **kwargs):
+        '''handle post requests to remove the current user from a trip'''
+        print(request.POST)
+        
+        trip = Trip.objects.get(pk=self.kwargs['pk'])
+        profile = self.get_user_profile(request.user)
+        
+        attendee_relations = AttendTrip.objects.filter(trip=trip) & AttendTrip.objects.filter(profile=profile)
+        
+        for r in attendee_relations:
+            r.delete()
+        
+        return redirect('show_trip', pk=self.kwargs['pk'])
+        
     
 class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new image'''

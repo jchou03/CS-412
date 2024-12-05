@@ -8,9 +8,13 @@
     <h4>Trip Attendees (removal):</h4>
 
     {% for p in trip.get_attendees %}
-        <a href="{% url 'remove_attendee' trip_pk=trip.pk pk=p.pk %}" class="button_link attendee_list_link">Remove {{p}}</a>
+        {% if p != logged_in_profile %}
+            <a href="{% url 'remove_attendee' trip_pk=trip.pk pk=p.pk %}" class="button_link attendee_list_link">Remove {{p}}</a>
+        {% endif %}
     {% endfor %}
     
+    <a href="{% url 'leave_trip' trip.pk %}" class="button_link attendee_list_link">Leave Trip</a>
+
     <a href="{% url 'show_trip' trip.pk %}" class="button_link attendee_list_link">Done</a>
 
 {% endblock %}

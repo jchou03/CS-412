@@ -26,6 +26,7 @@ urlpatterns = [
     path(r'trip/<int:pk>/remove_attendees', views.RemoveAttendeesView.as_view(), name="remove_attendees"),
     path(r'trip/<int:trip_pk>/remove_attendee/<int:pk>', views.RemoveAttendeeView.as_view(), name="remove_attendee"),
     path(r'trip/<int:pk>/join', views.JoinTripView.as_view(), name="join_trip"),
+    path(r'trip/<int:pk>/leave', views.LeaveTripView.as_view(), name="leave_trip"),
     
     # image views
     path(r'trip/<int:trip_pk>/create_img', views.CreateImageView.as_view(), name="create_img"),
