@@ -4,48 +4,6 @@ body {
     margin: 0px;
 }
 
-/* navbar styling */
-.navbar {
-    list-style-type: none; 
-    background-color: #002A32; 
-    width: 200px; 
-    height: 100%; 
-    position: fixed;
-    overflow: auto;
-    font-family:'Courier New';
-    font-size: 18px;
-}
-
-.navbar a {
-    display: block; 
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    padding: 20px;
-}
-
-.navbar input {
-    display: block; 
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    padding: 20px;
-    width: 100%;
-    background-color: #002A32; 
-    border: 0;
-    outline: none;
-    font-family:'Courier New';
-    font-size: 20px;
-}
-
-form {
-    margin: 0px;
-}
-
-.navbar a:hover, .navbar input:hover{
-    background-color: #00b4d8;
-}
-
 .content {
     background-color: #E0FBFC;
     width: 100%;
@@ -61,12 +19,13 @@ form {
 
 /* show all trips styling */
 .trip {
-    background-color: #C4A29E;
+    color: white;
+    text-align: center;
+    background-color: #9DB4C0;
     width: 95%;
-    padding: 10px;
+    padding: 15px;
     margin-top: 10px;
     border-radius: 15px;
-    text-align: center;
 }
 
 .trip:hover {
@@ -76,6 +35,24 @@ form {
 .trip {
     text-decoration: none;
     color: #002A32;
+}
+
+/* general form styling */
+input, select, textarea{
+    width: 100%;
+    padding: 12px 20px;
+    height: 60px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+textarea {
+    height: 100px;
+    resize: none;
 }
 
 /* cost table styling */
@@ -115,8 +92,9 @@ form {
     background-color: #E0FBFC;
 }
 
-/* general form styling */
-input, select{
+
+/* cost_table form styling */
+.cost_table input, .cost_table select{
     width: 100%;
     padding: 12px 20px;
     height: 60px;
@@ -128,8 +106,7 @@ input, select{
     background-color: #E0FBFC;
 }
 
-
-input:hover, select:hover {
+.cost_table input:hover, .cost_table select:hover, input[type="submit"]:hover {
     background-color: #EEC6CA;
 }
 
@@ -154,7 +131,7 @@ input:hover, select:hover {
 }
 
 table {
-    margin: 10px;
+    margin: 10px 0;
 }
 
 /* link button styling */
@@ -175,8 +152,92 @@ table {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    margin: 5px;
 }
 
 .button_link:hover {
     background-color:#EEC6CA;
+}
+
+/* styling for images */
+.image_post_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.image_post {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    max-height: 200px;
+    padding: 10px 0px;
+}
+
+.image_post img {
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.image_post p {
+    padding: 10px;
+}
+
+/* heading/general styling */
+h1, h2, h3, h4 {
+    text-align: center;
+}
+
+/* navbar styling */
+.navbar {
+    list-style-type: none; 
+    background-color: #002A32; 
+    width: 200px; 
+    height: 100%; 
+    position: fixed;
+    overflow: auto;
+    font-family:'Courier New';
+    font-size: 18px;
+}
+
+.navbar a {
+    display: block; 
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.navbar input {
+    display: block; 
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+    background-color: #002A32; 
+    border: 0;
+    outline: none;
+    font-family:'Courier New';
+    font-size: 20px;
+}
+
+.navbar form, .navbar input {
+    margin: 0px;
+    border-radius: 0px;
+}
+
+form {
+    margin: 0px;
+}
+
+.navbar a:hover, .navbar input:hover{
+    background-color: #00b4d8;
+}
+
+.attendee_list_link {
+    width: 50%;
+    min-width: 200px;
 }

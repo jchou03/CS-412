@@ -3,9 +3,11 @@
 
 {% block content %}
     <h1>Create A New Cost!</h1>
-    <form method="POST" action="{% url 'create_cost' trip_pk %}">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit">
-    </form>
+    <table>
+        <form method="POST" action="{% url 'create_cost' trip_pk %}">
+            {% csrf_token %}
+            {{form.as_table}}
+            <tr><td></td><td><input type="submit"></td></tr>
+        </form>
+    </table>
 {% endblock %}
