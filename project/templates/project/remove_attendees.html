@@ -5,18 +5,12 @@
     <h1>{{trip.name}}</h1>
     <p>{{trip.destination}}, {{trip.get_dates_string}}</p>
 
-    <table class="attendees_table">
-        <tr>
-            <th>Trip Attendees (removal):</th>
-        </tr>
-        {% for p in trip.get_attendees %}
-        <tr>
-            <td><a href="{% url 'remove_attendee' trip_pk=trip.pk pk=p.pk %}">Remove {{p}}</a></td>
-        </tr>
-        {% endfor %}
-            
-    </table>
+    <h4>Trip Attendees (removal):</h4>
 
-    <a href="{% url 'show_trip' trip.pk %}">Done</a>
+    {% for p in trip.get_attendees %}
+        <a href="{% url 'remove_attendee' trip_pk=trip.pk pk=p.pk %}" class="button_link attendee_list_link">Remove {{p}}</a>
+    {% endfor %}
+    
+    <a href="{% url 'show_trip' trip.pk %}" class="button_link attendee_list_link">Done</a>
 
 {% endblock %}

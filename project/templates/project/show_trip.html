@@ -18,17 +18,15 @@
 
     <div class="controls">
         {% if is_attendee %}
-            <tr>
-                <td><a href="{% url 'add_attendee' trip.pk %}" class="button_link">Add Attendee</a></td>
-                <td><a href="{% url 'remove_attendees' trip.pk %}" class="button_link">Remove Attendees</a></td>
-            </tr>
+            <a href="{% url 'update_trip' trip.pk %}" class="button_link">Update Trip Details</a>
+            <a href="{% url 'add_attendee' trip.pk %}" class="button_link">Add Attendee</a>
+            <a href="{% url 'remove_attendees' trip.pk %}" class="button_link">Remove Attendees</a>
+            <a href="{% url 'create_cost' trip.pk %}" class="button_link">Add Cost</a>
+            <a href="{% url 'create_img' trip.pk %}" class="button_link">Post Image</a>
+            <a href="" class="button_link">Cost Breakdown</a>
         {% else %}
-            <tr>
-                <td><a href="{% url 'join_trip' trip.pk %}" class="button_link">Join Trip</a></td>
-            </tr>
+            <a href="{% url 'join_trip' trip.pk %}" class="button_link">Join Trip</a>
         {% endif %}
-        <a href="{% url 'create_cost' trip.pk %}" class="button_link">Add Cost</a>
-        <a href="{% url 'create_img' trip.pk %}" class="button_link">Post Image</a>
     </div>
 
     <table class="cost_table">
@@ -72,17 +70,17 @@
         {% endfor %}
     </table>
 
-    <table class="img_table">
+    <div class="image_post_container">
         {% for img in trip.get_images %}
-        <tr>
-            <td><img src="{{img.image.url}}" alt="image can't be loaded"></td>
-            <td>{{img.poster}}</td>
-            <td><a href="{% url 'delete_image' trip_pk=trip.pk pk=img.pk %}">Delete</a></td>
-        </tr>
+            <div class="image_post">
+                <img src="{{img.image.url}}" alt="image can't be loaded">
+                <p>by {{img.poster}}</p>
+                <a href="{% url 'delete_image' trip_pk=trip.pk pk=img.pk %}" class="button_link">Delete</a>
+            </div>
         {% endfor %}
-    </table>
+    </div>
 
     {% if is_attendee %}
-        <a href="{% url 'delete_trip' trip.pk %}">Delete Trip</a>
+        <a href="{% url 'delete_trip' trip.pk %}" class="button_link">Delete Trip</a>
     {% endif %}
 {% endblock %}
