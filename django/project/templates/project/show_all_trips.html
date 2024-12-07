@@ -8,5 +8,7 @@
     </div>
     {% for trip in trips %}
         <a href="{% url 'show_trip' trip.pk %}" class="trip" >{{trip}}</a>
+    {% empty %}
+        <a class="trip">No trips match your search</a>
     {% endfor %}
 {% endblock %}

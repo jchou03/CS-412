@@ -2,44 +2,11 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 from . models import *
 from . forms import *
+from . mixins import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.views.generic.base import ContextMixin
 from urllib.parse import urlencode
-
-# custom mixins
-class UserDetailsMixin(object):
-    '''class to share sign in details'''    
-    def get_user_profile(self, user):
-        '''get a profile from a user'''
-        return Profile.objects.filter(user=user).first()
-    
-    def get_context_data(self, **kwargs):
-        '''update the context data to include'''
-        # find user who is logged in
-        # print(f'request:{self.request.user}')
-        context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            # find profile 
-            # add to context data
-            profile = self.get_user_profile(self.request.user)
-            context['logged_in_profile'] = profile
-        else: 
-            context['logged_in_profile'] = None
-
-        return context
-    
-class AssociatedTripMixin():
-    '''mixin to represent shared behavior for views that require relationships to a specific trip'''
-    def get_context_data(self, **kwargs):
-        '''add primary key of the associated trip'''
-        context = super().get_context_data(**kwargs)
-        context['trip_pk'] = self.kwargs['trip_pk']
-        return context
-    
-    def get_success_url(self):
-        '''redirect url to the trip that the newly created object is attached to'''
-        return reverse('show_trip', kwargs={"pk":self.kwargs["trip_pk"]})
 
 # trip related views
 class ShowAllTripsView(UserDetailsMixin, ListView):
@@ -53,7 +20,7 @@ class ShowAllTripsView(UserDetailsMixin, ListView):
         context = super().get_context_data(**kwargs)
         # parameters to search for in a trip
         context['action_url'] = "show_all_trips"
-                
+        
         return context
     
     def get_queryset(self):
@@ -116,15 +83,21 @@ class CreateTripView(UserDetailsMixin, CreateView):
         
         return redirect('show_trip', pk=trip.pk)
     
-class DeleteTripView(UserDetailsMixin, DeleteView):
+class DeleteTripView(AttendeeRequiredTripMixin, DeleteView):
     '''view to delete an existing trip'''
     model = Trip
     template_name = "project/delete_trip.html"
     
     def get_success_url(self):
+        '''success url after successful deletion'''
         return reverse('show_all_trips')
     
-class UpdateTripView(UserDetailsMixin, UpdateView):
+    def get_login_url(self):
+        '''login url if unauthorized'''
+        return super().get_login_url()
+    
+# class UpdateTripView(UserDetailsMixin, UpdateView):
+class UpdateTripView(AttendeeRequiredTripMixin, UpdateView):
     '''view to update an existing trip'''
     model = Trip
     form_class = UpdateTripForm
@@ -350,4 +323,6 @@ class CreateProfileView(CreateView):
 class CostBreakdownView(ListView):
     '''view to display graphs breaking down the different costs'''
     
-    
+class NoAccessView(TemplateView):
+    '''view to display a no access page'''
+    template_name = "project/no_access.html"
