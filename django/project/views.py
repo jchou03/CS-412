@@ -171,17 +171,24 @@ class AddAttendeeToTripView(AttendeeRequiredTripMixin, AssociatedTripMixin, Crea
     form_class = AddAttendeeToTripForm
     template_name = 'project/add_attendee_to_trip.html'
     
+    def get_form(self, form_class=None):
+        '''return an instance of the form to be displayed'''
+        trip = Trip.objects.get(pk=self.kwargs['trip_pk'])        
+        attendee_options = Profile.objects.all().exclude(id__in=trip.get_attendees().values('id'))
+        return AddAttendeeToTripForm(attendee_options=attendee_options, **self.get_form_kwargs())
+    
     def form_valid(self, form):
         '''process form upon submission'''
         trip = Trip.objects.get(pk=self.kwargs['trip_pk'])
         form.instance.trip = trip    
-        
+        print("in form valid")
         # check that this profile hasn't been added to the trip already
         attendees = trip.get_attendees()
         if form.instance.profile in attendees:
             print(f'the profie {form.instance.profile} is already attending the trip {trip}')
             return redirect('show_trip', pk=trip.pk)
         else:
+            print(f'adding new attendee {form.instance.profile}')
             return super().form_valid(form)
     
 class RemoveAttendeesView(AttendeeRequiredTripMixin, DetailView):

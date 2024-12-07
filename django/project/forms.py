@@ -41,8 +41,16 @@ class AddAttendeeToTripForm(forms.ModelForm):
         model=AttendTrip
         fields = ['profile']
         
-    # def __init__(self, *args, **kwargs):
-    #     '''update options for possible users to add'''
+    def __init__(self, *args, **kwargs):
+        '''update options for possible users to add to the trip'''
+        attendee_options = kwargs.pop('attendee_options', None)
+        
+        super().__init__(*args, **kwargs)
+            
+        if attendee_options != None:
+            print(f"attendee options found with {attendee_options}")
+            self.fields['profile'].queryset = attendee_options
+
     
 class CreateImageForm(forms.ModelForm):
     '''form to create a new image'''
