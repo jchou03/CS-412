@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from django.core.validators import MinValueValidator
 
 class CreateTripForm(forms.ModelForm):
     '''form to create a trip in the database'''
@@ -27,12 +28,36 @@ class CreateCostForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['paid_by'].required = False
         
+        item_price_field = forms.FloatField(
+            validators=[MinValueValidator(0.0)],  # Ensures that the value is greater than 0
+            error_messages={'min_value': 'Value must be positive.'}  # Custom error message
+        )
+        
+        self.fields['item_price'] = item_price_field
+        
 class UpdateCostForm(forms.ModelForm):
     '''form to update properties of a specific cost'''
     class Meta:
         '''associate this form with the cost model'''
         model = Cost
         fields = ['item_name', 'item_price', 'paid_by']
+    
+    item_price = forms.FloatField(
+            validators=[MinValueValidator(0.0)],  # Ensures that the value is greater than 0
+            error_messages={'min_value': 'Value must be positive.'}  # Custom error message
+        )
+    
+    # def __init__(self, *args, **kwargs):
+    #     '''update required state of certain fields'''
+    #     super().__init__(*args, **kwargs)
+                
+    #     item_price_field = forms.FloatField(
+    #         validators=[MinValueValidator(0.0)],  # Ensures that the value is greater than 0
+    #         error_messages={'min_value': 'Value must be positive.'}  # Custom error message
+    #     )
+        
+    #     self.fields['item_price'] = item_price_field
+
 
 class AddAttendeeToTripForm(forms.ModelForm):
     '''form to add a new attendee to a trip'''

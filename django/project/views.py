@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.views.generic.base import ContextMixin
 from urllib.parse import urlencode
+import plotly
+import plotly.graph_objs as go
 
 # trip related views
 class ShowAllTripsView(UserDetailsMixin, ListView):
@@ -138,7 +140,6 @@ class UpdateCostView(AttendeeRequiredTripMixin, AssociatedTripMixin, UpdateView)
         '''process post requests to the update view
             the ShowTripView will display a form that will directly make POST requests to this endpoint to enable editing
         '''
-        print(request.POST)
         return super().post(request, *args, **kwargs)
     
     def form_valid(self, form):
@@ -235,10 +236,7 @@ class JoinTripView(UserDetailsMixin, View):
         else:
             
             # make sure to redirect with a next url assigned
-            base_url = reverse('login')
-            query_str = urlencode({'next': reverse('join_trip', kwargs={'pk': trip.pk})})
-            url = '{}?{}'.format(base_url, query_str)
-            return redirect(url)
+            return redirect(encode_url('login', {'next': reverse('join_trip', kwargs={'pk': trip.pk})}))
         
 class LeaveTripView(UserDetailsMixin, DetailView):
     '''view to process a trip attendee leaving the trip'''
@@ -326,9 +324,46 @@ class CreateProfileView(CreateView):
         '''redirect URL after form submission'''
         return reverse('show_all_trips')    
         
-class CostBreakdownView(ListView):
-    '''view to display graphs breaking down the different costs'''
-    
 class NoAccessView(TemplateView):
     '''view to display a no access page'''
     template_name = "project/no_access.html"
+        
+class CostBreakdownView(UserDetailsMixin, ListView):
+    '''view to display graphs breaking down the different costs'''
+    model = Cost
+    template_name = "project/cost_breakdown.html"
+    
+    def get_queryset(self):
+        '''limit set of costs to costs applicable to this trip'''
+        trip = Trip.objects.get(pk=self.kwargs['pk'])
+        return Cost.objects.filter(trip=trip)
+    
+    def get_context_data(self, **kwargs):
+        '''generate graphs and add to context data'''
+        context = super().get_context_data(**kwargs)
+        
+        costs = self.get_queryset()
+        
+        cost_paid_by = {}
+        
+        for c in costs:
+            if c.actual_cost:
+                paid_by = str(c.paid_by)
+                if paid_by in cost_paid_by:
+                    cost_paid_by[paid_by] += c.item_price
+                else:
+                    cost_paid_by[paid_by] = c.item_price
+        
+        fig = go.Pie(values=list(cost_paid_by.values()), labels=list(cost_paid_by.keys()))
+        graph_cost_breakdown = plotly.offline.plot({
+            "data":[fig], 
+            "layout_title_text": "Cost Breakdown"
+        }, auto_open=False,
+        output_type="div")
+        
+        context['graph_cost_breakdown'] = graph_cost_breakdown
+        
+        return context
+        
+        
+        

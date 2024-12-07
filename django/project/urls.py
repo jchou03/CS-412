@@ -20,6 +20,7 @@ urlpatterns = [
     path(r'trip/<int:trip_pk>/create_cost', views.CreateCostView.as_view(), name="create_cost"),
     path(r'trip/<int:trip_pk>/delete_cost/<int:pk>', views.DeleteCostView.as_view(), name="delete_cost"),
     path(r'trip/<int:trip_pk>/update_cost/<int:pk>', views.UpdateCostView.as_view(), name="update_cost"),
+    path(r'trip/<int:pk>/cost_breakdown', views.CostBreakdownView.as_view(), name="cost_breakdown"),
     
     # attendee views
     path(r'trip/<int:trip_pk>/add_attendee', views.AddAttendeeToTripView.as_view(), name="add_attendee"),
@@ -37,6 +38,5 @@ urlpatterns = [
     path(r'logout', auth_views.LogoutView.as_view(template_name="project/logged_out.html"), name="logout"),
     path(r'create_profile', views.CreateProfileView.as_view(), name="create_profile"),
     path(r'no_access', views.NoAccessView.as_view(), name="no_access"),
-
     # path(r'profile', views.ShowProfileView.as_view(), name="show_profile")
 ]
