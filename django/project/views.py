@@ -96,7 +96,6 @@ class DeleteTripView(AttendeeRequiredTripMixin, DeleteView):
         '''login url if unauthorized'''
         return super().get_login_url()
     
-# class UpdateTripView(UserDetailsMixin, UpdateView):
 class UpdateTripView(AttendeeRequiredTripMixin, UpdateView):
     '''view to update an existing trip'''
     model = Trip
@@ -110,7 +109,7 @@ class UpdateTripView(AttendeeRequiredTripMixin, UpdateView):
         return reverse('show_trip', kwargs = self.kwargs)
       
 # cost related views  
-class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
+class CreateCostView(AttendeeRequiredTripMixin, AssociatedTripMixin, CreateView):
     '''view to create a new cost'''
     form_class = CreateCostForm
     template_name = "project/create_cost.html"
@@ -129,7 +128,7 @@ class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
         
         return super().form_valid(form)
     
-class UpdateCostView(UserDetailsMixin, AssociatedTripMixin, UpdateView):
+class UpdateCostView(AttendeeRequiredTripMixin, AssociatedTripMixin, UpdateView):
     '''view to allow users to update parameters of costs on the trip'''
     model = Cost
     form_class = UpdateCostForm
@@ -154,7 +153,7 @@ class UpdateCostView(UserDetailsMixin, AssociatedTripMixin, UpdateView):
         
         return super().form_valid(form)
     
-class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
+class DeleteCostView(AttendeeRequiredTripMixin, AssociatedTripMixin, View):
     '''view to delete a new cost'''
     def dispatch(self, request, *args, **kwargs):
         '''function to handle the immediate deletion of a cost'''
@@ -167,7 +166,7 @@ class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
         return redirect('show_trip', pk=self.kwargs['trip_pk'])
     
 # attendee related views
-class AddAttendeeToTripView(UserDetailsMixin, AssociatedTripMixin, CreateView):
+class AddAttendeeToTripView(AttendeeRequiredTripMixin, AssociatedTripMixin, CreateView):
     '''view to add a new attendee to a trip'''
     form_class = AddAttendeeToTripForm
     template_name = 'project/add_attendee_to_trip.html'
@@ -185,7 +184,7 @@ class AddAttendeeToTripView(UserDetailsMixin, AssociatedTripMixin, CreateView):
         else:
             return super().form_valid(form)
     
-class RemoveAttendeesView(UserDetailsMixin, DetailView):
+class RemoveAttendeesView(AttendeeRequiredTripMixin, DetailView):
     '''view to display the list of attendees to enable removal'''
     model = Trip
     template_name = "project/remove_attendees.html"
@@ -255,7 +254,7 @@ class LeaveTripView(UserDetailsMixin, DetailView):
         return redirect('show_trip', pk=self.kwargs['pk'])
         
 # image related views 
-class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
+class CreateImageView(AttendeeRequiredTripMixin, AssociatedTripMixin, CreateView):
     '''view to create a new image'''
     form_class = CreateImageForm
     template_name = "project/create_image.html"
@@ -276,7 +275,7 @@ class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
         
         return super().form_valid(form)
 
-class DeleteImageView(UserDetailsMixin, AssociatedTripMixin, DeleteView):
+class DeleteImageView(AttendeeRequiredTripMixin, AssociatedTripMixin, DeleteView):
     '''deletion page for images'''
     model = Image
     template_name = "project/delete_image.html"
