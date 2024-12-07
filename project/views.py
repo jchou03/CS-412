@@ -97,10 +97,24 @@ class ShowTripView(UserDetailsMixin, DetailView):
         
         return context
     
-class CreateTripView(CreateView):
+class CreateTripView(UserDetailsMixin, CreateView):
     '''view to create a new trip'''
     form_class = CreateTripForm
     template_name = "project/create_trip.html"
+    
+    def form_valid(self, form):
+        '''define custom behavior to add the creating user to a new trip'''
+        
+        # create the trip
+        trip = form.save()
+        profile = self.get_user_profile(self.request.user)
+            
+        # attach the current user as an attendee
+        attend_trip = AttendTrip(trip=trip, profile=profile)
+        
+        attend_trip.save()
+        
+        return redirect('show_trip', pk=trip.pk)
     
 class DeleteTripView(UserDetailsMixin, DeleteView):
     '''view to delete an existing trip'''
