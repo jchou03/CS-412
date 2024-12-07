@@ -23,7 +23,7 @@
             <a href="{% url 'remove_attendees' trip.pk %}" class="button_link">Remove Attendees</a>
             <a href="{% url 'create_cost' trip.pk %}" class="button_link">Add Cost</a>
             <a href="{% url 'create_img' trip.pk %}" class="button_link">Post Image</a>
-            <a href="" class="button_link">Cost Breakdown</a>
+            <a href="{% url 'cost_breakdown' trip.pk %}" class="button_link">Cost Breakdown</a>
         {% else %}
             <a href="{% url 'join_trip' trip.pk %}" class="button_link">Join Trip</a>
         {% endif %}
@@ -43,7 +43,7 @@
             <form method="POST" action="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">
                 {% csrf_token %}
                 <td><input type="text" name="item_name" value="{{cost.item_name}}"></td>
-                <td><input type="number" name="item_price" value="{{cost.item_price}}"></td>
+                <td><input type="number" name="item_price" value="{{cost.item_price}}" step="any"></td>
                 <td>
                     <select name="paid_by">
                         <option value>---------</option>
