@@ -41,7 +41,7 @@ class AssociatedTripMixin():
         '''redirect url to the trip that the newly created object is attached to'''
         return reverse('show_trip', kwargs={"pk":self.kwargs["trip_pk"]})
 
-# views
+# trip related views
 class ShowAllTripsView(UserDetailsMixin, ListView):
     '''view that displays all trips'''
     model = Trip
@@ -135,7 +135,8 @@ class UpdateTripView(UserDetailsMixin, UpdateView):
         '''redirect URL after successful update'''
         self.kwargs['pk'] = self.get_context_data()['object'].pk
         return reverse('show_trip', kwargs = self.kwargs)
-        
+      
+# cost related views  
 class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new cost'''
     form_class = CreateCostForm
@@ -143,7 +144,7 @@ class CreateCostView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     
     def form_valid(self, form):
         '''create a new cost based on a valid form submission'''
-        if (form.instance.paid_by == None):
+        if (form.instance.paid_by == None or form.instance.paid_by == ''):
             # if paid by is empty, this is a planned cost, not an actual cost
             form.instance.actual_cost = False
         else:
@@ -162,9 +163,23 @@ class UpdateCostView(UserDetailsMixin, AssociatedTripMixin, UpdateView):
     template_name = 'project/update_cost.html'
     
     def post(self, request, *args, **kwargs):
+        '''process post requests to the update view
+            the ShowTripView will display a form that will directly make POST requests to this endpoint to enable editing
+        '''
         print(request.POST)
-        
         return super().post(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        '''process updated forms'''
+        print(f'this is the cost we are updating with: {form.instance}')
+        
+        # update actual_cost if paid
+        if form.instance.paid_by == None or form.instance.paid_by == '':
+            form.instance.actual_cost = False
+        else:
+            form.instance.actual_cost = True
+        
+        return super().form_valid(form)
     
 class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
     '''view to delete a new cost'''
@@ -178,7 +193,7 @@ class DeleteCostView(UserDetailsMixin, AssociatedTripMixin, View):
         cost.delete()
         return redirect('show_trip', pk=self.kwargs['trip_pk'])
     
-    
+# attendee related views
 class AddAttendeeToTripView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to add a new attendee to a trip'''
     form_class = AddAttendeeToTripForm
@@ -266,7 +281,7 @@ class LeaveTripView(UserDetailsMixin, DetailView):
         
         return redirect('show_trip', pk=self.kwargs['pk'])
         
-    
+# image related views 
 class CreateImageView(UserDetailsMixin, AssociatedTripMixin, CreateView):
     '''view to create a new image'''
     form_class = CreateImageForm
@@ -294,6 +309,7 @@ class DeleteImageView(UserDetailsMixin, AssociatedTripMixin, DeleteView):
     template_name = "project/delete_image.html"
     context_object_name = "image"
     
+# profile related views
 class CreateProfileView(CreateView):
     '''view to create a new profile and user for the app'''
     form_class = CreateProfileForm
