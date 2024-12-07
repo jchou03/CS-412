@@ -242,13 +242,13 @@ class JoinTripView(UserDetailsMixin, View):
     def dispatch(self, request, *args, **kwargs):
         '''process adding the current user to a trip'''
 
+        trip = Trip.objects.get(pk=self.kwargs['pk'])
+
         if request.user.is_authenticated :
             # first check that there is a user authenticated
             profile = self.get_user_profile(request.user)
             
-            # add this user as an attendee
-            trip = Trip.objects.get(pk=self.kwargs['pk'])
-            
+            # add this user as an attendee            
             attend_trip = AttendTrip(trip=trip, profile=profile)
             attend_trip.save()
             
@@ -257,7 +257,7 @@ class JoinTripView(UserDetailsMixin, View):
             
             # make sure to redirect with a next url assigned
             base_url = reverse('login')
-            query_str = urlencode({'next': reverse('show_trip', kwargs={'pk': 1})})
+            query_str = urlencode({'next': reverse('join_trip', kwargs={'pk': trip.pk})})
             url = '{}?{}'.format(base_url, query_str)
             return redirect(url)
         
@@ -347,3 +347,7 @@ class CreateProfileView(CreateView):
         '''redirect URL after form submission'''
         return reverse('show_all_trips')    
         
+class CostBreakdownView(ListView):
+    '''view to display graphs breaking down the different costs'''
+    
+    
