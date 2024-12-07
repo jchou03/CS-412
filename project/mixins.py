@@ -15,10 +15,12 @@ def get_trip_pk(kwargs):
     This is used to ensure the correct trip pk is used when both a related trip pk and 
     object pk are in a single view'''
     
-    pk = kwargs['pk']
+    pk = 1
     if 'trip_pk' in kwargs:
         pk = kwargs['trip_pk']
-        
+    else:
+        pk = kwargs['pk']    
+    
     return pk
 
 # custom mixins for views
@@ -64,10 +66,8 @@ class AttendeeRequiredTripMixin(UserDetailsMixin, LoginRequiredMixin):
     
     def dispatch(self, request, *args, **kwargs):
         '''extra processing to ensure that the user is a trip attendee'''
-        trip = Trip.objects.get(pk=self.kwargs['pk'])
-        if "trip_pk" in self.kwargs:
-            trip = Trip.objects.get(pk=self.kwargs['trip_pk'])
-            
+        trip_pk = get_trip_pk(self.kwargs)
+        trip = Trip.objects.get(pk=trip_pk)
         profile = None
         
         if request.user.is_authenticated:
@@ -85,8 +85,5 @@ class AttendeeRequiredTripMixin(UserDetailsMixin, LoginRequiredMixin):
         
         trip_pk = get_trip_pk(self.kwargs)
         
-        kwargs = self.kwargs
-        kwargs['pk'] = trip_pk
-        
-        obj = {'next': reverse('join_trip', kwargs=kwargs)}
+        obj = {'next': reverse('join_trip', kwargs={'pk': trip_pk})}
         return redirect(encode_url('no_access', obj))
