@@ -76,7 +76,7 @@ class ShowTripView(UserDetailsMixin, DetailView):
         
         return context
     
-class CreateTripView(UserDetailsMixin, CreateView):
+class CreateTripView(UserDetailsMixin, LoginRequiredMixin, CreateView):
     '''view to create a new trip'''
     form_class = CreateTripForm
     template_name = "project/create_trip.html"
@@ -94,6 +94,12 @@ class CreateTripView(UserDetailsMixin, CreateView):
         # show the newly created trip
         return redirect('show_trip', pk=trip.pk)
     
+    def get_login_url(self):
+        '''define the login url'''
+        obj = {'next': reverse('create_trip')}
+        url = encode_url('login', obj)
+        return url
+    
 class DeleteTripView(AttendeeRequiredTripMixin, DeleteView):
     '''view to delete an existing trip'''
     model = Trip
@@ -102,10 +108,6 @@ class DeleteTripView(AttendeeRequiredTripMixin, DeleteView):
     def get_success_url(self):
         '''success url after successful deletion'''
         return reverse('show_all_trips')
-    
-    def get_login_url(self):
-        '''login url if unauthorized'''
-        return super().get_login_url()
     
 class UpdateTripView(AttendeeRequiredTripMixin, UpdateView):
     '''view to update an existing trip'''
