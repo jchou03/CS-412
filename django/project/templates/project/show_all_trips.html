@@ -1,14 +1,25 @@
-<!-- project/templates/project/show_all_trips.html -->
-{% extends "project/base.html" %}
+<!-- 
+    File: project/show_all_trips.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display all trips in the app. 
+    This page also allows filtering based on the user's inputs.
+-->
 
+{% extends "project/base.html" %}
 {% block content %}
     <h1>Trip Planner</h1>
+    {% comment %} include the search/filtering form for trips {% endcomment %}
     <div class="row">
         {% include "project/search.html" %}    
     </div>
+
+    {% comment %} display each trip with links to the detailed view of each trip {% endcomment %}
     {% for trip in trips %}
         <a href="{% url 'show_trip' trip.pk %}" class="trip" >{{trip}}</a>
     {% empty %}
+        {% comment %} render a message that notifies the user that no trips match their search 
+        if no trips are found 
+        {% endcomment %}
         <a class="trip">No trips match your search</a>
     {% endfor %}
 {% endblock %}

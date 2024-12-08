@@ -395,5 +395,3 @@ class CostBreakdownView(UserDetailsMixin, ListView):
         # add graph to context data to be rendered and return context data
         context['graph_cost_breakdown'] = graph_cost_breakdown
         return context  
-        
-        

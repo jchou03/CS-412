@@ -1,22 +1,30 @@
+<!-- 
+    File: project/delete_image.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to disply a confirmation page for users when they try to delete an image
+-->
+
 {% extends 'project/base.html' %}
-{% comment %} page for users to delete images {% endcomment %}
 {% block content %}
 
 <h2>Are you sure you want to delete this image?</h2>
-{% comment %} <div class="img_table"> {% endcomment %}
-    <img src="{{image.image.url}}" alt="image goes here" class="delete_image">
-{% comment %} </div> {% endcomment %}
+
+{% comment %} display the image to be deleted {% endcomment %}
+<img src="{{image.image.url}}" alt="image goes here" class="delete_image">
 
 <table>
     <tr>
         <td>
+            {% comment %} form to delete the image {% endcomment %}
             <form method="POST">
                 {% csrf_token %}
-                {% comment %} <input type="hidden" name="profile_pk" value={{status.profile.pk}}> {% endcomment %}
                 <input type="submit" name="delete_image" value="Delete Image">
             </form>
         </td>
         <td>
+            {% comment %} form to cancel the image deletion process and return
+            to the trip details page
+            {% endcomment %}
             <form action="{% url 'show_trip' trip_pk %}">
                 <input type="submit" name="cancel" value="Cancel">
             </form>

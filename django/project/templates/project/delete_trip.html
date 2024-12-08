@@ -1,20 +1,27 @@
+<!-- 
+    File: project/delete_trip.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the confirmation page for a user to delete a trip.
+-->
+
 {% extends 'project/base.html' %}
-{% comment %} page for users to delete images {% endcomment %}
 {% block content %}
 
 <h2>Are you sure you want to delete this trip? This action cannot be undone...</h2>
-
+{% comment %} display the name of the trip being dleeted {% endcomment %}
 <h4>{{trip}}</h4>
 
 <table>
     <tr>
         <td>
+            {% comment %} form to submit the trip deletion request {% endcomment %}
             <form method="POST">
                 {% csrf_token %}
                 <input type="submit" name="delete_trip" value="Delete Trip">
             </form>
         </td>
         <td>
+            {% comment %} form to cancel the deletion process and return to the trip details {% endcomment %}
             <form action="{% url 'show_trip' trip.pk %}">
                 <input type="submit" name="cancel" value="Cancel">
             </form>

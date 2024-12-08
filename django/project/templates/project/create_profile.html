@@ -1,7 +1,14 @@
+<!-- 
+    File: project/create_profile.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the form that will create a new django User and Profile object
+-->
+
 {% extends 'project/base.html' %}
-{% comment %} page for users to create new profiles {% endcomment %}
 {% block content %}
 
+{% comment %} Define the table that contains the UserCreationForm and the CreateProfileForm together.
+ {% endcomment %}
 <form method="POST">
     {% csrf_token %}
     <table>
@@ -10,9 +17,12 @@
         <tr>
             <td></td>
             <td>
+                {% comment %} input to submit the form to create a new Profile and django User {% endcomment %}
                 <input type="submit" name="create_profile" value="Create Profile">
 </form>
-                <!-- NOTE: this is a separate form! -->
+                {% comment %} separate form that is used to cancel profile creation and return to
+                the ShowAllTripsView
+                 {% endcomment %}
                 <form action="{% url 'show_all_trips'%}">
                     <input type="submit" name="Cancel" value="Cancel">
                 </form>

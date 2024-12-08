@@ -1,10 +1,16 @@
-<!-- project/templates/project/show_trip.html -->
-{% extends "project/base.html" %}
+<!-- 
+    File: project/show_trip.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the details of an individual trip
+-->
 
+{% extends "project/base.html" %}
 {% block content %}
+    {% comment %} display general trip information {% endcomment %}
     <h1>{{trip.name}}</h1>
     <p>{{trip.destination}}, {{trip.get_dates_string}}</p>
 
+    {% comment %} display the attendees of the trip in a table {% endcomment %}
     <table class="attendees_table">
         <tr>
             <th>Trip Attendees:</th>
@@ -16,6 +22,8 @@
         {% endfor %}
     </table>
 
+    {% comment %} display a row of buttons that enable trip attendees 
+    to modify properties of the trip {% endcomment %}
     <div class="controls">
         {% if is_attendee %}
             <a href="{% url 'update_trip' trip.pk %}" class="button_link">Update Trip Details</a>
@@ -25,27 +33,39 @@
             <a href="{% url 'create_img' trip.pk %}" class="button_link">Post Image</a>
             <a href="{% url 'cost_breakdown' trip.pk %}" class="button_link">Cost Breakdown</a>
         {% else %}
+            {% comment %} if the user isn't an attendee, a button to join the trip as an attendee
+            is displayed
+            {% endcomment %}
             <a href="{% url 'join_trip' trip.pk %}" class="button_link">Join Trip</a>
         {% endif %}
     </div>
 
+    {% comment %} display all the costs (both actual and planned costs) as a table {% endcomment %}
     <table class="cost_table">
         <tr>
             <th>Item</th>
             <th>Price</th>
             <th>Paid By</th>
+            {% comment %} only include the 'Update' column if the user is a trip attendee {% endcomment %}
             {% if is_attendee %}
                 <th>Update</th>
             {% endif %}
         </tr>
+
+        {% comment %} display each of the costs associated with the trip {% endcomment %}
         {% for cost in trip.get_costs %}
         <tr>
+            {% comment %} Display each cost as a form that enables users to edit costs directly in this 
+            page. {% endcomment %}
             <form method="POST" action="{% url 'update_cost' trip_pk=trip.pk pk=cost.pk %}">
                 {% csrf_token %}
                 <td><input type="text" name="item_name" value="{{cost.item_name}}"></td>
                 <td><input type="number" name="item_price" value="{{cost.item_price}}" step="any"></td>
                 <td>
                     <select name="paid_by">
+                        {% comment %} only include trip attendees as options in the select element
+                        so only trip attendees can be assigned costs
+                        {% endcomment %}
                         <option value>---------</option>
                         {% for p in trip.get_attendees %}
                             {% if cost.paid_by == p %}
@@ -56,6 +76,8 @@
                         {% endfor %}
                     </select>
                 </td>
+                {% comment %} only include the submit buttons to update or delete a given cost
+                if the user is a trip attendee {% endcomment %}
                 {% if is_attendee %}
                     <td>
                         <input type="submit" name="update_cost" value="Update Cost" class="cost_update">
@@ -70,11 +92,13 @@
         {% endfor %}
     </table>
 
+    {% comment %} display all the images attached to this trip {% endcomment %}
     <div class="image_post_container">
         {% for img in trip.get_images %}
             <div class="image_post">
                 <img src="{{img.image.url}}" alt="image can't be loaded">
                 <p>by {{img.poster}}</p>
+                {% comment %} only display the 'delete_image' button if the user is an attendee {% endcomment %}
                 {% if is_attendee %}
                     <a href="{% url 'delete_image' trip_pk=trip.pk pk=img.pk %}" class="button_link">Delete</a>
                 {% endif %}
@@ -82,6 +106,7 @@
         {% endfor %}
     </div>
 
+    {% comment %} only display the 'delete_trip' button if the user is a trip attendee {% endcomment %}
     {% if is_attendee %}
         <a href="{% url 'delete_trip' trip.pk %}" class="button_link">Delete Trip</a>
     {% endif %}

@@ -1,20 +1,29 @@
+<!-- 
+    File: project/delete_attend_.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display a confirmation page for users when they try to leave a trip.
+    This template will not be displayed when a user tries to remove other attendees, but will only
+    display when they try to remove themselves from a trip.
+-->
+
 {% extends 'project/base.html' %}
-{% comment %} page for users to delete images {% endcomment %}
 {% block content %}
 
 <h2>Are you sure you want to leave this trip?</h2>
-
+{% comment %} display the name of the trip that the user is trying to leave {% endcomment %}
 <h4>{{trip}}</h4>
 
 <table>
     <tr>
         <td>
+            {% comment %} form to leave the trip {% endcomment %}
             <form method="POST">
                 {% csrf_token %}
                 <input type="submit" name="leave_trip" value="Leave Trip">
             </form>
         </td>
         <td>
+            {% comment %} form to cancel leaving the trip and return to the trip page {% endcomment %}
             <form action="{% url 'show_trip' trip.pk %}">
                 <input type="submit" name="cancel" value="Cancel">
             </form>

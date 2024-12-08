@@ -1,8 +1,16 @@
-<!-- templates/project/create_trip.html -->
+<!-- 
+    File: project/create_cost.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the form that will create a cost associated with a trip
+-->
 {% extends 'project/base.html' %}
 
 {% block content %}
     <h1>Create A New Cost!</h1>
+
+    {% comment %} display the cost creation form as a table for 
+    users to create new costs associated with a trip 
+    {% endcomment %}
     <table>
         <form method="POST" action="{% url 'create_cost' trip_pk %}">
             {% csrf_token %}

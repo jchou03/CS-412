@@ -1,14 +1,24 @@
+<!-- 
+    File: project/login.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the login form for users to login through the 
+    django authentication system 
+-->
 {% extends 'project/base.html' %}
-
 {% block content %}
 
 <h1>Login</h1>
 
+{% comment %} display the form for users to log in {% endcomment %}
 <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
 
     {{form}}
 
+    {% comment %} If a request.GET.next parameter is set, then set the redirect after a successful
+    login to request.GET.next. Otherwise, redirect to the ShowAllTripsView. Certain views will set
+    the request.GET.next parameter to customize redirect behavior after login.
+    {% endcomment %}
     {% if request.GET.next %}
         <input type="hidden" name="next" value="{{request.GET.next}}">
     {% else %}

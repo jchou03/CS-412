@@ -1,8 +1,14 @@
-<!-- templates/project/create_trip.html -->
+<!-- 
+    File: project/create_trip.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the form that will create a new trip
+-->
+
 {% extends 'project/base.html' %}
 
 {% block content %}
     <h1>Create A New Trip!</h1>
+    {% comment %} display the trip creation form as a table for users to create a new trip {% endcomment %}
     <form method="POST" action="{% url 'create_trip' %}">
         {% csrf_token %}
         {{form}}
