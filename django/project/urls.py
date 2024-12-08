@@ -1,5 +1,7 @@
-# project/urls.py
-# description: app specific URLS for the project application
+# File: urls.py
+# Author: Jared Chou (jchou@bu.edu) 2024
+# Description: Define the urlpatterns that defines the different url paths in the app and which views
+# will be displayed at each url. 
 
 from django.urls import path
 from django.conf import settings
@@ -38,5 +40,4 @@ urlpatterns = [
     path(r'logout', auth_views.LogoutView.as_view(template_name="project/logged_out.html"), name="logout"),
     path(r'create_profile', views.CreateProfileView.as_view(), name="create_profile"),
     path(r'no_access', views.NoAccessView.as_view(), name="no_access"),
-    # path(r'profile', views.ShowProfileView.as_view(), name="show_profile")
 ]
