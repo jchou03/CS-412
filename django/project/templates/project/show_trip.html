@@ -75,7 +75,9 @@
             <div class="image_post">
                 <img src="{{img.image.url}}" alt="image can't be loaded">
                 <p>by {{img.poster}}</p>
-                <a href="{% url 'delete_image' trip_pk=trip.pk pk=img.pk %}" class="button_link">Delete</a>
+                {% if is_attendee %}
+                    <a href="{% url 'delete_image' trip_pk=trip.pk pk=img.pk %}" class="button_link">Delete</a>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
