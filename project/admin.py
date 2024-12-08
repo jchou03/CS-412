@@ -1,3 +1,8 @@
+# File: admin.py
+# Author: Jared Chou (jchou@bu.edu) 2024
+# Description: Register the different models to the django Admin so they can be viewed through the 
+# django admin tool
+
 from django.contrib import admin
 from .models import *
 
