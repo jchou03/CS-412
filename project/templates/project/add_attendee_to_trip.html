@@ -1,8 +1,13 @@
-<!-- templates/project/create_trip.html -->
+<!-- 
+    File: project/add_attendee_to_trip.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the form to add a new profile as an attendee of a trip 
+-->
 {% extends 'project/base.html' %}
 
 {% block content %}
     <h1>Add a New Attendee!</h1>
+    {% comment %} form to POST content from user input to add a new attendee to the trip {% endcomment %}
     <form method="POST" action="{% url 'add_attendee' trip_pk %}">
         {% csrf_token %}
         {{form}}

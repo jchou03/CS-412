@@ -1,20 +1,30 @@
-<!-- project/templates/project/show_trip.html -->
+<!-- 
+    File: project/remove_attendees.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display a page that enables trip attendees to remove other trip attendees.
+-->
 {% extends "project/base.html" %}
-
 {% block content %}
+
+    {% comment %} display specific information about the trip {% endcomment %}
     <h1>{{trip.name}}</h1>
     <p>{{trip.destination}}, {{trip.get_dates_string}}</p>
 
-    <h4>Trip Attendees (removal):</h4>
+    <h4>Remove Trip Attendees</h4>
 
+    {% comment %} iterate over the trip attendees and display links to remove each 
+    attendee that isn't the current user 
+    {% endcomment %}
     {% for p in trip.get_attendees %}
         {% if p != logged_in_profile %}
             <a href="{% url 'remove_attendee' trip_pk=trip.pk pk=p.pk %}" class="button_link attendee_list_link">Remove {{p}}</a>
         {% endif %}
     {% endfor %}
     
+    {% comment %} link for the current user to leave the trip {% endcomment %}
     <a href="{% url 'leave_trip' trip.pk %}" class="button_link attendee_list_link">Leave Trip</a>
 
+    {% comment %} done button that links back to the trip that the user is modifying {% endcomment %}
     <a href="{% url 'show_trip' trip.pk %}" class="button_link attendee_list_link">Done</a>
 
 {% endblock %}

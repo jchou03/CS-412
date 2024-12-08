@@ -1,6 +1,16 @@
+<!-- 
+    File: project/no_access.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display a webpage that informs the user that they do not have access to 
+    the operation. 
+-->
+
 {% extends 'project/base.html' %}
 
 {% block content %}
-    <h2>You do not have access to this operation. Please join the trip as an attendee first!</h2>
+    <h2>You do not have access to this operation. Please login and join the trip as an attendee first!</h2>
+    {% comment %} Button that links to the page specified by request.GET.next. This is set by 
+    the view that they tried to access to redirect the user to the correct page to gain access. 
+    {% endcomment %}
     <a class="button_link" href="{{request.GET.next}}">Join Trip</a>
 {% endblock %}

@@ -1,10 +1,19 @@
-<!-- project/cost_breakdown.html -->
+<!-- 
+    File: project/cost_breakdown.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the cost breakdown of costs paid by attendees during the trip.
+-->
+
 {% extends 'project/base.html' %}
 
 {% block content %}
 
     <h2>Cost Breakdown</h2>
 
+    {% comment %} render the graph in the form of a div based on the graph generated 
+    in the CostBreakdownView 
+    {% endcomment %}
+    
     {{graph_cost_breakdown|safe}}
 
     <hr>

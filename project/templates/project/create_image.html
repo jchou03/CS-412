@@ -1,8 +1,15 @@
-<!-- templates/project/create_trip.html -->
+<!-- 
+    File: project/create_image.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the form that will create a image associated with a trip
+-->
 {% extends 'project/base.html' %}
 
 {% block content %}
     <h1>Create A New Image!</h1>
+    {% comment %} display the image creation form as a table for 
+    users to create new images  associated with a trip 
+    {% endcomment %}
     <table>
         <form method="POST" action="{% url 'create_img' trip_pk %}" enctype="multipart/form-data">
             {% csrf_token %}

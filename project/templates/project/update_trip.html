@@ -1,11 +1,18 @@
+<!-- 
+    File: project/update_trip.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Template to display the form that enables users to update a trip
+-->
 {% extends 'project/base.html' %}
-
 {% block content %}
 
 <h2>Update this trip</h2>
 
+{% comment %} display the name of the trip being updated {% endcomment %}
 <h4>{{trip}}</h4>
 
+{% comment %} display the form to update the trip with the existing values 
+already populated in the form {% endcomment %}
 <table>
     <form method="POST"> 
     {% csrf_token %}
@@ -15,6 +22,7 @@
         <td>
             <input type="submit" name="update_trip" value="Update Trip">
     </form>
+            {% comment %} form to cancel the operation and return to the detailed view of the trip {% endcomment %}
             <form action="{% url 'show_trip' trip.pk %}">
                 <input type="submit" name="cancel" value="Cancel">
             </form>

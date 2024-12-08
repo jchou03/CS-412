@@ -1,4 +1,10 @@
-<!-- project/templates/project/base.html -->
+<!-- 
+    File: project/base.html
+    Author: Jared Chou (jchou@bu.edu) 2024
+    Description: Base template to display common UI elements across all pages of the project app. 
+    This includes the page title, navbar, footer, and includes a 'content' block that child templates
+    will implement.
+-->
 
 {% load static %}
 
@@ -8,26 +14,37 @@
          <link rel="stylesheet", href="{% static 'project.css' %}">
      </head> 
      <body>
+        {% comment %} navbar for app that changes display options based on 
+        user's authentication status 
+        {% endcomment %}
          <nav class="navbar">
             <a href="{% url 'show_all_trips' %}">Show All Trips</a>
             {% if request.user.is_authenticated %}
+                {% comment %} if user is authenticated, 
+                display create trip and logout options 
+                {% endcomment %}
                 <a href="{% url 'create_trip' %}">Create Trip</a>
                 <form method="POST" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <input type="submit" value="Logout">
                 </form>
+                {% comment %} display the Profile name that is currently logged in {% endcomment %}
                 <a>Signed in as: {{logged_in_profile}}</a>
             {% else %}
+                {% comment %} if the user isn't authenticated, then display the 
+                login and create profile options instead {% endcomment %}
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'create_profile' %}">Create Profile</a>
             {% endif %}
          </nav>
 
+        {% comment %} content block that child templates will implement {% endcomment %}
         <div class="content">
             {% block content %}
                 {% comment %} content will go here {% endcomment %}
             {% endblock %}
-
+            
+            {% comment %} footer for display at the bottom of each page {% endcomment %}
             <footer>
                 <h4>have fun~</h4>
             </footer>
