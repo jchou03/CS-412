@@ -95,7 +95,7 @@ class CreateTripView(UserDetailsMixin, LoginRequiredMixin, CreateView):
         return redirect('show_trip', pk=trip.pk)
     
     def get_login_url(self):
-        '''define the login url'''
+        '''define the login url with the next redirect link specified'''
         obj = {'next': reverse('create_trip')}
         url = encode_url('login', obj)
         return url
