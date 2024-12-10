@@ -1,0 +1,24 @@
+start with show all trips view
+    show looking through different trips
+    demonstrate filtering from
+looking at a trip's detailed view
+    first show while not an attendee
+account creation!
+    create a new account
+    Demo User
+    demo_user
+    password: cs412demo
+create a new trip with details
+show trip view as attendee (with ability to edit)
+    update trip properties
+    add attendees to the trip
+    remove attendees from the trip
+    leave trip
+    rejoin the trip
+    add cost
+    update costs in view
+    delete costs
+    add image
+    delete images
+show cost breakdown
+show authentication locks by logging out and then trying to access specific CRUD operation pages
