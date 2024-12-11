@@ -1,5 +1,5 @@
 # File: models.py
-# Author: Jared Chou (jchou@bu.edu) 2024
+# Author: Jared Chou (jchou@bu.edu) 11/19/2024
 # Description: Defining the different data models that represent different data in this app
 
 from django.db import models

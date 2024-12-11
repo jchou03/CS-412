@@ -1,5 +1,5 @@
 # File: mixins.py
-# Author: Jared Chou (jchou@bu.edu) 2024
+# Author: Jared Chou (jchou@bu.edu) 12/5/2024
 # Description: Define custom Mixin objects that are incorporated into the different views of the app
 # to consistently define common/shared behaviors
 
