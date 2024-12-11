@@ -1,5 +1,5 @@
 # File: forms.py
-# Author: Jared Chou (jchou@bu.edu) 2024
+# Author: Jared Chou (jchou@bu.edu) 11/19/2024
 # Description: Define the different forms and behavior of such forms throughout the project app.
 # These forms are mainly used to create and update objects, but some include custom parameters to 
 # influence form validation and processing. 

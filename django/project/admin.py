@@ -1,5 +1,5 @@
 # File: admin.py
-# Author: Jared Chou (jchou@bu.edu) 2024
+# Author: Jared Chou (jchou@bu.edu) 11/19/2024
 # Description: Register the different models to the django Admin so they can be viewed through the 
 # django admin tool
 

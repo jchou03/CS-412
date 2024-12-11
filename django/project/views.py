@@ -1,5 +1,5 @@
 # File: views.py
-# Author: Jared Chou (jchou@bu.edu) 2024
+# Author: Jared Chou (jchou@bu.edu) 11/19/2024
 # Description: Define custom views that will display and process data for the user to interact with. 
 
 from django.shortcuts import render, redirect

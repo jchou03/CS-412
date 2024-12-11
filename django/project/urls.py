@@ -1,5 +1,5 @@
 # File: urls.py
-# Author: Jared Chou (jchou@bu.edu) 2024
+# Author: Jared Chou (jchou@bu.edu) 11/19/2024
 # Description: Define the urlpatterns that defines the different url paths in the app and which views
 # will be displayed at each url. 
 
